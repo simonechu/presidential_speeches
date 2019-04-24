@@ -1,0 +1,88 @@
+---
+title: "html_to_df"
+author: "Simone Chu"
+date: "4/23/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(rvest)
+library(tidytext)
+library(tidyverse)
+```
+
+
+```{r SOTU_unnested}
+
+# FOR SOTU 2019
+sotu2019 <- paste(readLines("sotu2019.html"))
+
+sotu2019 <- data.frame(sotu2019, stringsAsFactors = FALSE)
+
+sotu2019_tidy <- sotu2019 %>%
+  unnest_tokens(word, sotu2019) %>%
+  filter(word != "p")
+
+  # Paragraph breaks were denoted with a "<p>", so I filtered that out because it was recorded
+  # as appearing the most frequently. 
+
+sotu2019_sentiment <- sotu2019_tidy %>%
+  inner_join(get_sentiments("bing")) %>%
+  count(word, sentiment)
+
+# FOR SOTU 2018
+sotu2018 <- paste(readLines("sotu2018.html"))
+
+sotu2018 <- data.frame(sotu2018, stringsAsFactors = FALSE)
+
+sotu2018_tidy <- sotu2018 %>%
+  unnest_tokens(word, sotu2018) %>%
+  filter(word != "p")
+
+sotu2018_sentiment <- sotu2018_tidy %>%
+  inner_join(get_sentiments("bing")) %>%
+  count(word, sentiment)
+
+# FOR SOTU 2016
+sotu2016 <- paste(readLines("sotu2016.html"))
+
+sotu2016 <- data.frame(sotu2016, stringsAsFactors = FALSE)
+
+sotu2016_tidy <- sotu2016 %>%
+  unnest_tokens(word, sotu2016) %>%
+  filter(word != "p")
+
+sotu2016_sentiment <- sotu2016_tidy %>%
+  inner_join(get_sentiments("bing")) %>%
+  count(word, sentiment)
+
+# FOR SOTU 2015
+sotu2015 <- paste(readLines("sotu2015.html"))
+
+sotu2015 <- data.frame(sotu2015, stringsAsFactors = FALSE)
+
+sotu2015_tidy <- sotu2015 %>%
+  unnest_tokens(word, sotu2015) %>%
+  filter(word != "p")
+
+sotu2015_sentiment <- sotu2015_tidy %>%
+  inner_join(get_sentiments("bing")) %>%
+  count(word, sentiment)
+
+# FOR SOTU 2014
+sotu2014 <- paste(readLines("sotu2014.html"))
+
+sotu2014 <- data.frame(sotu2014, stringsAsFactors = FALSE)
+
+sotu2014_tidy <- sotu2014 %>%
+  unnest_tokens(word, sotu2014) %>%
+  filter(word != "p")
+
+sotu2014_sentiment <- sotu2014_tidy %>%
+  inner_join(get_sentiments("bing")) %>%
+  count(word, sentiment)
+
+```
+
