@@ -86,6 +86,8 @@ sotu2014_sentiment <- sotu2014_tidy %>%
 
 ```
 ```{r inaugural_addresses}
+
+# 2017 Inaugural Address - (Same process as for State of the Union!)
 i2017 <- paste(readLines("inaugural2017.html"))
 
 i2017 <- data.frame(i2017, stringsAsFactors = FALSE)
@@ -98,6 +100,88 @@ i2017_sentiment <- i2017_tidy %>%
   inner_join(get_sentiments("bing")) %>%
   count(word, sentiment)
 
+# 2009 Inaugural Address 
+i2009 <- paste(readLines("inaugural2009.html"))
+
+i2009 <- data.frame(i2009, stringsAsFactors = FALSE)
+
+i2009_tidy <- i2009 %>%
+  unnest_tokens(word, i2009) %>%
+  filter(word != "p")
+
+i2009_sentiment <- i2009_tidy %>%
+  inner_join(get_sentiments("bing")) %>%
+  count(word, sentiment)
+
+# 2001 Inaugural Address
+i2001 <- paste(readLines("inaugural2001.html"))
+
+i2001 <- data.frame(i2001, stringsAsFactors = FALSE)
+
+i2001_tidy <- i2001 %>%
+  unnest_tokens(word, i2001) %>%
+  filter(word != "p")
+
+i2001_sentiment <- i2001_tidy %>%
+  inner_join(get_sentiments("bing")) %>%
+  count(word, sentiment)
+
+# 1993 Inaugural Address
+i1993 <- paste(readLines("inaugural1993.html"))
+
+i1993 <- data.frame(i1993, stringsAsFactors = FALSE)
+
+i1993_tidy <- i1993 %>%
+  unnest_tokens(word, i1993) %>%
+  filter(word != "p")
+
+i1993_sentiment <- i1993_tidy %>%
+  inner_join(get_sentiments("bing")) %>%
+  count(word, sentiment)
+
+```
+```{r press}
+# NEWS CONFERENCE, PRESIDENT OBAMA
+press_obama <- paste(readLines("press_obama_2017-01-18.html"))
+
+press_obama <- data.frame(press_obama, stringsAsFactors = FALSE)
+
+press_obama_tidy <- press_obama %>%
+  unnest_tokens(word, press_obama) %>%
+  filter(word != "p")
+
+press_obama_sentiment <- press_obama_tidy %>%
+  inner_join(get_sentiments("bing")) %>%
+  count(word, sentiment)
+
+# NEWS CONFERENCE, PRESIDENT TRUMP
+press_trump <- paste(readLines("press_trump_2017-02-16.html"))
+
+press_trump <- data.frame(press_trump, stringsAsFactors = FALSE)
+
+press_trump_tidy <- press_trump %>%
+  unnest_tokens(word, press_trump) %>%
+  filter(word != "p")
+
+press_trump_sentiment <- press_trump_tidy %>%
+  inner_join(get_sentiments("bing")) %>%
+  count(word, sentiment)
+
+```
+
+
+
+
+```{r top_tens}
+
+adaptation_sentiment %>%
+  # Group by sentiment
+  group_by(sentiment) %>%
+  # Take the top 10 for each sentiment
+  top_n(10) %>%
+  ungroup() %>%
+  # Make word a factor in order of n
+  mutate(word = reorder(word, n))
 
 ```
 
