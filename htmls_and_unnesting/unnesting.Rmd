@@ -85,4 +85,19 @@ sotu2014_sentiment <- sotu2014_tidy %>%
   count(word, sentiment)
 
 ```
+```{r inaugural_addresses}
+i2017 <- paste(readLines("inaugural2017.html"))
+
+i2017 <- data.frame(i2017, stringsAsFactors = FALSE)
+
+i2017_tidy <- i2017 %>%
+  unnest_tokens(word, i2017) %>%
+  filter(word != "p")
+
+i2017_sentiment <- i2017_tidy %>%
+  inner_join(get_sentiments("bing")) %>%
+  count(word, sentiment)
+
+
+```
 
