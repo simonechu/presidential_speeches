@@ -53,7 +53,9 @@ ui <- fluidPage(theme = shinytheme("lumen"),
                                          choices = c("Trump, 2017", "Obama, 2009", 
                                                      "Bush, 2001", "Clinton, 1993"),
                                          multiple = FALSE, 
-                                         selected = "Trump, 2017")), 
+                                         selected = "Trump, 2017"),
+                             h4("Notes"),
+                             textOutput("i_analysis")),
                 mainPanel(plotOutput("i_topten"), plotOutput("i_ot")))),
      
      tabPanel("State of the Union",
@@ -88,6 +90,24 @@ ui <- fluidPage(theme = shinytheme("lumen"),
 
 # Define server logic
 server <- function(input, output) {
+  
+  output$i_analysis <- renderText({
+    if (input$ia == "Trump, 2017") {
+      "'Great' was the most frequently-appearing word in Trump's Inaugural Address, and a part of his campaign motto to 'Make America Great Again'. This Inaugural Address was 1433 words long."
+    }
+    
+    else if (input$ia == "Obama, 2009") {
+      "Obama first took office during the Great Recession, which may be why the word 'crisis' appears so often in his Inaugural Address -- as well as his emphasis on 'hard work'. This Inaugural Address was 2395 words long."
+    }
+    
+    else if (input$ia == "Bush, 2001") {
+      "The ten most frequently used words in Bush's Inaugural Address were all coded as positive. This Inaugural Address was 1592 words long."
+    }
+    
+    else if (input$ia == "Clinton, 1993") {
+      "The language used over the duration of Clinton's Inaugural Address was overwhelmingly positive. This Inaugural Address was 1598 words long."
+    }
+  })
    
   output$i_topten <- renderPlot({
     if (input$ia == "Trump, 2017") {

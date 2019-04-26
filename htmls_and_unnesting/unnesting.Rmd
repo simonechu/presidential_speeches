@@ -553,7 +553,7 @@ write_rds(sotu2014_ot,
 pressobama_ot <- press_obama_tidy %>%
   inner_join(get_sentiments("bing")) %>%
   mutate(row = row_number()) %>%
-  count(index =  row %/% 20, sentiment) %>%
+  count(index =  row %/% 12, sentiment) %>%
   spread(sentiment, n, fill = 0) %>%
   mutate(sentiment = positive - negative) %>%
   
