@@ -79,7 +79,7 @@ ui <- fluidPage(theme = shinytheme("lumen"),
                 plotOutput("ot_bo"),
                 h3("President Trump's Press Conference - Feb. 16, 2017"), 
                 plotOutput("ot_dt"), 
-                
+                h4("Trump hosted fewer press conferences than Obama did during their respective first years in office. However, Trump is by no means the most difficult-to-access president that the press has seen..."),
                 plotOutput("pressconfs"),
                    align = "center")),
      
