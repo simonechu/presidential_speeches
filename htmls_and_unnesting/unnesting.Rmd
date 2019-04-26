@@ -174,6 +174,8 @@ press_trump_sentiment <- press_trump_tidy %>%
 
 ```{r top_tens}
 
+posneg <- c("#46b5e0", "#fdcb6e")
+
 # 2017 Inaugural Address
 i2017_topten <- i2017_sentiment %>%
   arrange(desc(n)) %>%
@@ -183,6 +185,7 @@ i2017_topten <- i2017_sentiment %>%
   
   ggplot(aes(x = word, y = n, fill = sentiment)) + 
   geom_col() + 
+  scale_fill_manual(values=posneg) +
   xlab("Word") + 
   ylab("Number of Instances") + 
   labs(title = "Top 10 Most Used Words in Donald Trump's Inaugural Address (2017)",
@@ -200,6 +203,7 @@ i2009_topten <- i2009_sentiment %>%
   
   ggplot(aes(x = word, y = n, fill = sentiment)) + 
   geom_col() + 
+  scale_fill_manual(values=posneg) +
   xlab("Word") + 
   ylab("Number of Instances") + 
   labs(title = "Top 10 Most Used Words in Barack Obama's First Inaugural Address (2009)",
@@ -217,6 +221,7 @@ i2001_topten <- i2001_sentiment %>%
   
   ggplot(aes(x = word, y = n, fill = sentiment)) + 
   geom_col() + 
+  scale_fill_manual(values=posneg) +
   xlab("Word") + 
   ylab("Number of Instances") + 
   labs(title = "Top 10 Most Used Words in George W. Bush's First Inaugural Address (2001)",
@@ -234,6 +239,7 @@ i1993_topten <- i1993_sentiment %>%
   
   ggplot(aes(x = word, y = n, fill = sentiment)) + 
   geom_col() + 
+  scale_fill_manual(values=posneg) +
   xlab("Word") + 
   ylab("Number of Instances") + 
   labs(title = "Top 10 Most Used Words in Bill Clinton's First Inaugural Address (1993)",
@@ -250,6 +256,7 @@ sotu2014_topten <- sotu2014_sentiment %>%
   
   ggplot(aes(x = word, y = n, fill = sentiment)) + 
   geom_col() + 
+  scale_fill_manual(values=posneg) +
   xlab("Word") + 
   ylab("Number of Instances") + 
   labs(title = "Top 10 Most Used Words in the 2014 State of the Union Address",
@@ -267,6 +274,7 @@ sotu2015_topten <- sotu2015_sentiment %>%
   
   ggplot(aes(x = word, y = n, fill = sentiment)) + 
   geom_col() + 
+  scale_fill_manual(values=posneg) +
   xlab("Word") + 
   ylab("Number of Instances") + 
   labs(title = "Top 10 Most Used Words in the 2015 State of the Union Address",
@@ -284,6 +292,7 @@ sotu2016_topten <- sotu2016_sentiment %>%
   
   ggplot(aes(x = word, y = n, fill = sentiment)) + 
   geom_col() + 
+  scale_fill_manual(values=posneg) +
   xlab("Word") + 
   ylab("Number of Instances") + 
   labs(title = "Top 10 Most Used Words in the 2015 State of the Union Address",
@@ -301,6 +310,7 @@ sotu2018_topten <- sotu2018_sentiment %>%
   
   ggplot(aes(x = word, y = n, fill = sentiment)) + 
   geom_col() + 
+  scale_fill_manual(values=posneg) +
   xlab("Word") + 
   ylab("Number of Instances") + 
   labs(title = "Top 10 Most Used Words in the 2015 State of the Union Address",
@@ -318,6 +328,7 @@ sotu2019_topten <- sotu2019_sentiment %>%
   
   ggplot(aes(x = word, y = n, fill = sentiment)) + 
   geom_col() + 
+  scale_fill_manual(values=posneg) +
   xlab("Word") + 
   ylab("Number of Instances") + 
   labs(title = "Top 10 Most Used Words in the 2019 State of the Union Address",
@@ -335,6 +346,7 @@ pressobama_topten <- press_obama_sentiment %>%
   
   ggplot(aes(x = word, y = n, fill = sentiment)) + 
   geom_col() + 
+  scale_fill_manual(values=posneg) +
   xlab("Word") + 
   ylab("Number of Instances") + 
   labs(title = "Top 10 Most Used Words in Pres. Obama's News Conference, Jan. 18, 2017",
@@ -352,6 +364,7 @@ presstrump_topten <- press_trump_sentiment %>%
   
   ggplot(aes(x = word, y = n, fill = sentiment)) + 
   geom_col() + 
+  scale_fill_manual(values=posneg) +
   xlab("Word") + 
   ylab("Number of Instances") + 
   labs(title = "Top 10 Most Used Words in Pres. Trump's News Conference, Feb. 16, 2017",
@@ -364,9 +377,82 @@ write_rds(presstrump_topten,
 ```
 
 ```{r over_time}
+# 1993 Inaugural Address 
+i1993_ot <- i1993_tidy %>%
+  inner_join(get_sentiments("bing")) %>%
+  mutate(row = row_number()) %>%
+  count(index =  row %/% 5, sentiment) %>%
+  spread(sentiment, n, fill = 0) %>%
+  mutate(sentiment = positive - negative) %>%
+  
+  ggplot(aes(index, sentiment, fill = sentiment)) +
+  geom_bar(stat = "identity", show.legend = FALSE) +
+  labs(title = "How the Tone Changes",
+       subtitle = "A plot of density of emotion words over the course of the speech.") + 
+  xlab("Duration of Speech") +
+  ylab("Expression") +
+  theme(axis.text.x=element_blank())
 
-# count(book, index = linenumber %/% 80, sentiment) %>%
-#   spread(sentiment, n, fill = 0) %>%
+write_rds(i1993_ot, 
+          "~/Desktop/presidential_speeches/lets-get-presidential/i1993_ot.rds")
+
+# 2001 Inaugural Address
+i2001_ot <- i2001_tidy %>%
+  inner_join(get_sentiments("bing")) %>%
+  mutate(row = row_number()) %>%
+  count(index =  row %/% 5, sentiment) %>%
+  spread(sentiment, n, fill = 0) %>%
+  mutate(sentiment = positive - negative) %>%
+  
+  ggplot(aes(index, sentiment, fill = sentiment)) +
+  geom_bar(stat = "identity", show.legend = FALSE) +
+  labs(title = "How the Tone Changes",
+       subtitle = "A plot of density of emotion words over the course of the speech.") + 
+  xlab("Duration of Speech") +
+  ylab("Expression") +
+  theme(axis.text.x=element_blank())
+
+write_rds(i2001_ot, 
+          "~/Desktop/presidential_speeches/lets-get-presidential/i2001_ot.rds")
+
+# 2009 Inaugural Address
+i2009_ot <- i2009_tidy %>%
+  inner_join(get_sentiments("bing")) %>%
+  mutate(row = row_number()) %>%
+  count(index =  row %/% 5, sentiment) %>%
+  spread(sentiment, n, fill = 0) %>%
+  mutate(sentiment = positive - negative) %>%
+  
+  ggplot(aes(index, sentiment, fill = sentiment)) +
+  geom_bar(stat = "identity", show.legend = FALSE) +
+  labs(title = "How the Tone Changes",
+       subtitle = "A plot of density of emotion words over the course of the speech.") + 
+  xlab("Duration of Speech") +
+  ylab("Expression") +
+  theme(axis.text.x=element_blank())
+
+write_rds(i2009_ot, 
+          "~/Desktop/presidential_speeches/lets-get-presidential/i2009_ot.rds")
+
+# 2017 Inaugural Address
+i2017_ot <- i2017_tidy %>%
+  inner_join(get_sentiments("bing")) %>%
+  mutate(row = row_number()) %>%
+  count(index =  row %/% 5, sentiment) %>%
+  spread(sentiment, n, fill = 0) %>%
+  mutate(sentiment = positive - negative) %>%
+  
+  ggplot(aes(index, sentiment, fill = sentiment)) +
+  geom_bar(stat = "identity", show.legend = FALSE) +
+  labs(title = "How the Tone Changes",
+       subtitle = "A plot of density of emotion words over the course of the speech.") + 
+  xlab("Duration of Speech") +
+  ylab("Expression") +
+  theme(axis.text.x=element_blank())
+
+write_rds(i2017_ot, 
+          "~/Desktop/presidential_speeches/lets-get-presidential/i2017_ot.rds")
+
   
 ```
 

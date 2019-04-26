@@ -47,27 +47,30 @@ ui <- fluidPage(theme = shinytheme("lumen"),
      
      tabPanel("State of the Union",
               
-              mainPanel(
-                h1("What makes a State of the Union speech?",
-                   imageOutput("img"),
-                   align = "center"
-                ),
-                h5("Simone Chu and Igor Morzan",
-                   align = "center"))),
+              h1("What makes a State of the Union speech?"),
+              sidebarLayout(
+                sidebarPanel(selectInput(inputId = "sotu",
+                                         label = "Select a Year",
+                                         choices = c("Trump, 2019", "Trump, 2018", 
+                                                     "Obama, 2016", "Obama, 2015",
+                                                     "Obama, 2014"),
+                                         multiple = FALSE, 
+                                         selected = "Trump, 2019")), 
+                mainPanel(plotOutput("sotu_topten")))),
      
      tabPanel("Press Relations",
               
               h1("An Analysis of Presidential Press Relations"),
               mainPanel(
                    plotOutput("pressconfs"),
-                   align = "center"),
+                   align = "center")),
      
      tabPanel("About", htmlOutput("message"))
    )
 
-))
+)
 
-# Define server logic required to draw a histogram
+# Define server logic
 server <- function(input, output) {
    
   output$i_topten <- renderPlot({
@@ -88,6 +91,28 @@ server <- function(input, output) {
     }
   }) 
   
+  output$sotu_topten <- renderPlot({
+    if (input$sotu == "Trump, 2019") {
+      sotu2019_topten
+    }
+    
+    else if (input$sotu == "Trump, 2018") {
+      sotu2018_topten
+    }
+    
+    else if (input$sotu == "Obama, 2016") {
+      sotu2016_topten
+    }
+    
+    else if (input$sotu == "Obama, 2015") {
+      sotu2015_topten
+    }
+    
+    else if (input$sotu == "Obama, 2014") {
+      sotu2014_topten
+    }
+  })
+  
   output$pressconfs <- renderPlot({
     
     press_plot %>%
@@ -105,7 +130,7 @@ server <- function(input, output) {
     str0 <- paste(" ")
     str1 <- paste("About")
     str2 <- paste("This app, which compares presidential speeches to each other, was made for the Gov. 1005: Data course at Harvard.")
-    str3 <- paste("The transcripts for each speech are from the UC Santa Barbara American Presidency Project, as it other data.")
+    str3 <- paste("The transcripts for each speech are from the UC Santa Barbara American Presidency Project, as is other data on press conferences and speech duration.")
     str4 <- paste("The code for this project can be found at https://github.com/simonechu/presidential_speeches")
     
     HTML(paste(tags$ul(str0, h3(str1, align = "center"), p(str2), p(str3), p(str4))))
