@@ -35,6 +35,7 @@ ui <- fluidPage(theme = shinytheme("lumen"),
      
      tabPanel("Inaugural Addresses",
               
+              h1("What makes an Inaugural Address?"),
               sidebarLayout(
                 sidebarPanel(selectInput(inputId = "ia",
                                          label = "Select an Inaugural Address",
@@ -56,18 +57,15 @@ ui <- fluidPage(theme = shinytheme("lumen"),
      
      tabPanel("Press Relations",
               
+              h1("An Analysis of Presidential Press Relations"),
               mainPanel(
-                h1("An Analysis of Presidential Press Relations",
-                   imageOutput("img"),
-                   align = "center"
-                ),
-                h5("Simone Chu and Igor Morzan",
-                   align = "center"))),
+                   plotOutput("pressconfs"),
+                   align = "center"),
      
-     tabPanel("About", textOutput("message"))
+     tabPanel("About", htmlOutput("message"))
    )
 
-)
+))
 
 # Define server logic required to draw a histogram
 server <- function(input, output) {
@@ -89,6 +87,19 @@ server <- function(input, output) {
       i1993_topten
     }
   }) 
+  
+  output$pressconfs <- renderPlot({
+    
+    press_plot %>%
+    ggplot(aes(x = president, y = number, fill = party)) + 
+      geom_col() +
+      scale_fill_manual(values=colors) + 
+      xlab("President") + 
+      ylab("Number of Press Conferences in First Year") + 
+      labs(title = "Number of Press Conferences Held in First Year of Presidency",
+           fill = "Party") + 
+      theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  })
   
   output$message <- renderUI({
     str0 <- paste(" ")
