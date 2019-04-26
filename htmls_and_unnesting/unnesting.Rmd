@@ -363,3 +363,10 @@ write_rds(presstrump_topten,
 
 ```
 
+```{r over_time}
+
+# count(book, index = linenumber %/% 80, sentiment) %>%
+#   spread(sentiment, n, fill = 0) %>%
+  
+```
+
