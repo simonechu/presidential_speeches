@@ -174,11 +174,10 @@ press_trump_sentiment <- press_trump_tidy %>%
 
 ```{r top_tens}
 
+# 2017 Inaugural Address
 i2017_topten <- i2017_sentiment %>%
-  group_by(sentiment) %>%
   arrange(desc(n)) %>%
   slice(1:10) %>%
-  ungroup() %>%
   # Make word a factor in order of n
   mutate(word = reorder(word, n)) %>% 
   
@@ -186,17 +185,16 @@ i2017_topten <- i2017_sentiment %>%
   geom_col() + 
   xlab("Word") + 
   ylab("Number of Instances") + 
-  labs(title = "The Top 10 Most Used Words in Donald Trump's Inaugural Address (2017)",
+  labs(title = "Top 10 Most Used Words in Donald Trump's Inaugural Address (2017)",
        fill = "Sentiment") + 
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 write_rds(i2017_topten, "~/Desktop/presidential_speeches/lets-get-presidential/i2017_topten.rds")
 
+# 2009 Inaugural Address 
 i2009_topten <- i2009_sentiment %>%
-  group_by(sentiment) %>%
   arrange(desc(n)) %>%
   slice(1:10) %>%
-  ungroup() %>%
   # Make word a factor in order of n
   mutate(word = reorder(word, n)) %>%
   
@@ -204,17 +202,16 @@ i2009_topten <- i2009_sentiment %>%
   geom_col() + 
   xlab("Word") + 
   ylab("Number of Instances") + 
-  labs(title = "The Top 10 Most Used Words in Barack Obama's First Inaugural Address (2009)",
+  labs(title = "Top 10 Most Used Words in Barack Obama's First Inaugural Address (2009)",
        fill = "Sentiment") + 
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 write_rds(i2009_topten, "~/Desktop/presidential_speeches/lets-get-presidential/i2009_topten.rds")
 
+# 2001 Inaugural Address 
 i2001_topten <- i2001_sentiment %>%
-  group_by(sentiment) %>%
   arrange(desc(n)) %>%
   slice(1:10) %>%
-  ungroup() %>%
   # Make word a factor in order of n
   mutate(word = reorder(word, n)) %>%
   
@@ -222,17 +219,16 @@ i2001_topten <- i2001_sentiment %>%
   geom_col() + 
   xlab("Word") + 
   ylab("Number of Instances") + 
-  labs(title = "The Top 10 Most Used Words in George W. Bush's First Inaugural Address (2001)",
+  labs(title = "Top 10 Most Used Words in George W. Bush's First Inaugural Address (2001)",
        fill = "Sentiment") + 
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 write_rds(i2001_topten, "~/Desktop/presidential_speeches/lets-get-presidential/i2001_topten.rds")
 
+# 1993 Inaugural Address
 i1993_topten <- i1993_sentiment %>%
-  group_by(sentiment) %>%
   arrange(desc(n)) %>%
   slice(1:10) %>%
-  ungroup() %>%
   # Make word a factor in order of n
   mutate(word = reorder(word, n)) %>%
   
@@ -240,11 +236,130 @@ i1993_topten <- i1993_sentiment %>%
   geom_col() + 
   xlab("Word") + 
   ylab("Number of Instances") + 
-  labs(title = "The Top 10 Most Used Words in Bill Clinton's First Inaugural Address (2009)",
+  labs(title = "Top 10 Most Used Words in Bill Clinton's First Inaugural Address (1993)",
        fill = "Sentiment") + 
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 write_rds(i1993_topten, "~/Desktop/presidential_speeches/lets-get-presidential/i1993_topten.rds")
+
+# SOTU 2014
+sotu2014_topten <- sotu2014_sentiment %>%
+  arrange(desc(n)) %>%
+  slice(1:10) %>%
+  mutate(word = reorder(word, n)) %>%
+  
+  ggplot(aes(x = word, y = n, fill = sentiment)) + 
+  geom_col() + 
+  xlab("Word") + 
+  ylab("Number of Instances") + 
+  labs(title = "Top 10 Most Used Words in the 2014 State of the Union Address",
+       fill = "Sentiment") + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+write_rds(sotu2014_topten, 
+          "~/Desktop/presidential_speeches/lets-get-presidential/sotu2014_topten.rds")
+
+# SOTU 2015
+sotu2015_topten <- sotu2015_sentiment %>%
+  arrange(desc(n)) %>%
+  slice(1:10) %>%
+  mutate(word = reorder(word, n)) %>%
+  
+  ggplot(aes(x = word, y = n, fill = sentiment)) + 
+  geom_col() + 
+  xlab("Word") + 
+  ylab("Number of Instances") + 
+  labs(title = "Top 10 Most Used Words in the 2015 State of the Union Address",
+       fill = "Sentiment") + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+write_rds(sotu2015_topten, 
+          "~/Desktop/presidential_speeches/lets-get-presidential/sotu2015_topten.rds")
+
+# SOTU 2016
+sotu2016_topten <- sotu2016_sentiment %>%
+  arrange(desc(n)) %>%
+  slice(1:10) %>%
+  mutate(word = reorder(word, n)) %>%
+  
+  ggplot(aes(x = word, y = n, fill = sentiment)) + 
+  geom_col() + 
+  xlab("Word") + 
+  ylab("Number of Instances") + 
+  labs(title = "Top 10 Most Used Words in the 2015 State of the Union Address",
+       fill = "Sentiment") + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+write_rds(sotu2016_topten, 
+          "~/Desktop/presidential_speeches/lets-get-presidential/sotu2016_topten.rds")
+
+# SOTU 2018
+sotu2018_topten <- sotu2018_sentiment %>%
+  arrange(desc(n)) %>%
+  slice(1:10) %>%
+  mutate(word = reorder(word, n)) %>%
+  
+  ggplot(aes(x = word, y = n, fill = sentiment)) + 
+  geom_col() + 
+  xlab("Word") + 
+  ylab("Number of Instances") + 
+  labs(title = "Top 10 Most Used Words in the 2015 State of the Union Address",
+       fill = "Sentiment") + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+write_rds(sotu2018_topten, 
+          "~/Desktop/presidential_speeches/lets-get-presidential/sotu2018_topten.rds")
+
+# SOTU 2019
+sotu2019_topten <- sotu2019_sentiment %>%
+  arrange(desc(n)) %>%
+  slice(1:10) %>%
+  mutate(word = reorder(word, n)) %>%
+  
+  ggplot(aes(x = word, y = n, fill = sentiment)) + 
+  geom_col() + 
+  xlab("Word") + 
+  ylab("Number of Instances") + 
+  labs(title = "Top 10 Most Used Words in the 2019 State of the Union Address",
+       fill = "Sentiment") + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+write_rds(sotu2019_topten, 
+          "~/Desktop/presidential_speeches/lets-get-presidential/sotu2019_topten.rds")
+
+# OBAMA PRESS
+pressobama_topten <- press_obama_sentiment %>%
+  arrange(desc(n)) %>%
+  slice(1:10) %>%
+  mutate(word = reorder(word, n)) %>%
+  
+  ggplot(aes(x = word, y = n, fill = sentiment)) + 
+  geom_col() + 
+  xlab("Word") + 
+  ylab("Number of Instances") + 
+  labs(title = "Top 10 Most Used Words in Pres. Obama's News Conference, Jan. 18, 2017",
+       fill = "Sentiment") + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+write_rds(pressobama_topten, 
+          "~/Desktop/presidential_speeches/lets-get-presidential/pressobama_topten.rds")
+
+# TRUMP PRESS
+presstrump_topten <- press_trump_sentiment %>%
+  arrange(desc(n)) %>%
+  slice(1:10) %>%
+  mutate(word = reorder(word, n)) %>%
+  
+  ggplot(aes(x = word, y = n, fill = sentiment)) + 
+  geom_col() + 
+  xlab("Word") + 
+  ylab("Number of Instances") + 
+  labs(title = "Top 10 Most Used Words in Pres. Trump's News Conference, Feb. 16, 2017",
+       fill = "Sentiment") + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+write_rds(pressobama_topten, 
+          "~/Desktop/presidential_speeches/lets-get-presidential/presstrump_topten.rds")
 
 ```
 
