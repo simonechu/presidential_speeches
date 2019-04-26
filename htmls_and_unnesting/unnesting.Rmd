@@ -186,35 +186,65 @@ i2017_topten <- i2017_sentiment %>%
   geom_col() + 
   xlab("Word") + 
   ylab("Number of Instances") + 
-  labs(title = "The Top 10 Most Used Words in Trump's Inaugural Address (2017)",
+  labs(title = "The Top 10 Most Used Words in Donald Trump's Inaugural Address (2017)",
        fill = "Sentiment") + 
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-write_rds(i2017_topten, "presidential_speeches/i2017_topten.rds")
+write_rds(i2017_topten, "~/Desktop/presidential_speeches/lets-get-presidential/i2017_topten.rds")
 
-i2009_sentiment %>%
+i2009_topten <- i2009_sentiment %>%
   group_by(sentiment) %>%
   arrange(desc(n)) %>%
   slice(1:10) %>%
   ungroup() %>%
   # Make word a factor in order of n
-  mutate(word = reorder(word, n))
+  mutate(word = reorder(word, n)) %>%
+  
+  ggplot(aes(x = word, y = n, fill = sentiment)) + 
+  geom_col() + 
+  xlab("Word") + 
+  ylab("Number of Instances") + 
+  labs(title = "The Top 10 Most Used Words in Barack Obama's First Inaugural Address (2009)",
+       fill = "Sentiment") + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-i2001_sentiment %>%
+write_rds(i2009_topten, "~/Desktop/presidential_speeches/lets-get-presidential/i2009_topten.rds")
+
+i2001_topten <- i2001_sentiment %>%
   group_by(sentiment) %>%
   arrange(desc(n)) %>%
   slice(1:10) %>%
   ungroup() %>%
   # Make word a factor in order of n
-  mutate(word = reorder(word, n))
+  mutate(word = reorder(word, n)) %>%
+  
+  ggplot(aes(x = word, y = n, fill = sentiment)) + 
+  geom_col() + 
+  xlab("Word") + 
+  ylab("Number of Instances") + 
+  labs(title = "The Top 10 Most Used Words in George W. Bush's First Inaugural Address (2001)",
+       fill = "Sentiment") + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-i1993_sentiment %>%
+write_rds(i2001_topten, "~/Desktop/presidential_speeches/lets-get-presidential/i2001_topten.rds")
+
+i1993_topten <- i1993_sentiment %>%
   group_by(sentiment) %>%
   arrange(desc(n)) %>%
   slice(1:10) %>%
   ungroup() %>%
   # Make word a factor in order of n
-  mutate(word = reorder(word, n))
+  mutate(word = reorder(word, n)) %>%
+  
+  ggplot(aes(x = word, y = n, fill = sentiment)) + 
+  geom_col() + 
+  xlab("Word") + 
+  ylab("Number of Instances") + 
+  labs(title = "The Top 10 Most Used Words in Bill Clinton's First Inaugural Address (2009)",
+       fill = "Sentiment") + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+write_rds(i1993_topten, "~/Desktop/presidential_speeches/lets-get-presidential/i1993_topten.rds")
 
 ```
 
