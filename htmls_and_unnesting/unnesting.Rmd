@@ -377,6 +377,7 @@ write_rds(presstrump_topten,
 ```
 
 ```{r over_time}
+
 # 1993 Inaugural Address 
 i1993_ot <- i1993_tidy %>%
   inner_join(get_sentiments("bing")) %>%
@@ -452,6 +453,102 @@ i2017_ot <- i2017_tidy %>%
 
 write_rds(i2017_ot, 
           "~/Desktop/presidential_speeches/lets-get-presidential/i2017_ot.rds")
+
+# 2019 SOTU
+sotu2019_ot <- sotu2019_tidy %>%
+  inner_join(get_sentiments("bing")) %>%
+  mutate(row = row_number()) %>%
+  count(index =  row %/% 5, sentiment) %>%
+  spread(sentiment, n, fill = 0) %>%
+  mutate(sentiment = positive - negative) %>%
+  
+  ggplot(aes(index, sentiment, fill = sentiment)) +
+  geom_bar(stat = "identity", show.legend = FALSE) +
+  labs(title = "How the Tone Changes",
+       subtitle = "A plot of density of emotion words over the course of the speech.") + 
+  xlab("Duration of Speech") +
+  ylab("Expression") +
+  theme(axis.text.x=element_blank())
+
+write_rds(sotu2019_ot, 
+          "~/Desktop/presidential_speeches/lets-get-presidential/sotu2019_ot.rds")
+
+# 2018 SOTU
+sotu2018_ot <- sotu2018_tidy %>%
+  inner_join(get_sentiments("bing")) %>%
+  mutate(row = row_number()) %>%
+  count(index =  row %/% 5, sentiment) %>%
+  spread(sentiment, n, fill = 0) %>%
+  mutate(sentiment = positive - negative) %>%
+  
+  ggplot(aes(index, sentiment, fill = sentiment)) +
+  geom_bar(stat = "identity", show.legend = FALSE) +
+  labs(title = "How the Tone Changes",
+       subtitle = "A plot of density of emotion words over the course of the speech.") + 
+  xlab("Duration of Speech") +
+  ylab("Expression") +
+  theme(axis.text.x=element_blank())
+
+write_rds(sotu2018_ot, 
+          "~/Desktop/presidential_speeches/lets-get-presidential/sotu2018_ot.rds")
+
+# 2016 SOTU
+sotu2016_ot <- sotu2016_tidy %>%
+  inner_join(get_sentiments("bing")) %>%
+  mutate(row = row_number()) %>%
+  count(index =  row %/% 5, sentiment) %>%
+  spread(sentiment, n, fill = 0) %>%
+  mutate(sentiment = positive - negative) %>%
+  
+  ggplot(aes(index, sentiment, fill = sentiment)) +
+  geom_bar(stat = "identity", show.legend = FALSE) +
+  labs(title = "How the Tone Changes",
+       subtitle = "A plot of density of emotion words over the course of the speech.") + 
+  xlab("Duration of Speech") +
+  ylab("Expression") +
+  theme(axis.text.x=element_blank())
+
+write_rds(sotu2016_ot, 
+          "~/Desktop/presidential_speeches/lets-get-presidential/sotu2016_ot.rds")
+
+# 2015 SOTU
+sotu2015_ot <- sotu2015_tidy %>%
+  inner_join(get_sentiments("bing")) %>%
+  mutate(row = row_number()) %>%
+  count(index =  row %/% 5, sentiment) %>%
+  spread(sentiment, n, fill = 0) %>%
+  mutate(sentiment = positive - negative) %>%
+  
+  ggplot(aes(index, sentiment, fill = sentiment)) +
+  geom_bar(stat = "identity", show.legend = FALSE) +
+  labs(title = "How the Tone Changes",
+       subtitle = "A plot of density of emotion words over the course of the speech.") + 
+  xlab("Duration of Speech") +
+  ylab("Expression") +
+  theme(axis.text.x=element_blank())
+
+write_rds(sotu2015_ot, 
+          "~/Desktop/presidential_speeches/lets-get-presidential/sotu2015_ot.rds")
+
+# 2014 SOTU
+sotu2014_ot <- sotu2014_tidy %>%
+  inner_join(get_sentiments("bing")) %>%
+  mutate(row = row_number()) %>%
+  count(index =  row %/% 5, sentiment) %>%
+  spread(sentiment, n, fill = 0) %>%
+  mutate(sentiment = positive - negative) %>%
+  
+  ggplot(aes(index, sentiment, fill = sentiment)) +
+  geom_bar(stat = "identity", show.legend = FALSE) +
+  labs(title = "How the Tone Changes",
+       subtitle = "A plot of density of emotion words over the course of the speech.") + 
+  xlab("Duration of Speech") +
+  ylab("Expression") +
+  theme(axis.text.x=element_blank())
+
+write_rds(sotu2014_ot, 
+          "~/Desktop/presidential_speeches/lets-get-presidential/sotu2014_ot.rds")
+
 
   
 ```
