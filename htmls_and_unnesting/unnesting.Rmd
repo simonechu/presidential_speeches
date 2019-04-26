@@ -9,6 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 
 library(rvest)
+library(readr)
 library(tidytext)
 library(tidyverse)
 ```
@@ -85,6 +86,7 @@ sotu2014_sentiment <- sotu2014_tidy %>%
   count(word, sentiment)
 
 ```
+
 ```{r inaugural_addresses}
 
 # 2017 Inaugural Address - (Same process as for State of the Union!)
@@ -170,18 +172,25 @@ press_trump_sentiment <- press_trump_tidy %>%
 ```
 
 
-
-
 ```{r top_tens}
 
-i2017_sentiment %>%
+i2017_topten <- i2017_sentiment %>%
   group_by(sentiment) %>%
   arrange(desc(n)) %>%
   slice(1:10) %>%
   ungroup() %>%
   # Make word a factor in order of n
-  mutate(word = reorder(word, n))
+  mutate(word = reorder(word, n)) %>% 
+  
+  ggplot(aes(x = word, y = n, fill = sentiment)) + 
+  geom_col() + 
+  xlab("Word") + 
+  ylab("Number of Instances") + 
+  labs(title = "The Top 10 Most Used Words in Trump's Inaugural Address (2017)",
+       fill = "Sentiment") + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
+write_rds(i2017_topten, "presidential_speeches/i2017_topten.rds")
 
 i2009_sentiment %>%
   group_by(sentiment) %>%
@@ -190,5 +199,22 @@ i2009_sentiment %>%
   ungroup() %>%
   # Make word a factor in order of n
   mutate(word = reorder(word, n))
+
+i2001_sentiment %>%
+  group_by(sentiment) %>%
+  arrange(desc(n)) %>%
+  slice(1:10) %>%
+  ungroup() %>%
+  # Make word a factor in order of n
+  mutate(word = reorder(word, n))
+
+i1993_sentiment %>%
+  group_by(sentiment) %>%
+  arrange(desc(n)) %>%
+  slice(1:10) %>%
+  ungroup() %>%
+  # Make word a factor in order of n
+  mutate(word = reorder(word, n))
+
 ```
 
