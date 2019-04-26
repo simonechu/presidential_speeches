@@ -1,0 +1,49 @@
+---
+title: "press_availability"
+author: "Simone Chu"
+date: "4/25/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(ggplot2)
+library(tidyverse)
+```
+
+
+```{r}
+
+press_conferences <- read_csv("first_year_press_conferences.csv")
+
+```
+
+```{r}
+
+# I don't want a bar graph in alphabetical order, so I'll lock in the order here. 
+
+press_conferences$president <- factor(press_conferences$president, 
+                                      levels = press_conferences$president)
+
+# I also don't like how the default sets Democrats as red, so I'll change that here. 
+
+colors <- c("#1382ff", "red")
+
+# Time to make the plot! 
+
+press_plot <- press_conferences %>%
+  mutate(party = fct_recode(party, "Democrat" = "D", "Republican" = "R")) %>%
+  ggplot(aes(x = president, y = number, fill = party)) + 
+  geom_col() +
+  scale_fill_manual(values=colors) + 
+  xlab("President") + 
+  ylab("Number of Press Conferences in First Year") + 
+  labs(title = "Number of Press Conferences Held in First Year of Presidency",
+       fill = "Party") + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+write_rds(press_plot, 
+          "~/Desktop/presidential_speeches/lets-get-presidential/press_plot.rds")
+```
+
