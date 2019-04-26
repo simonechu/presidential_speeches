@@ -36,7 +36,7 @@ press_plot <- press_conferences %>%
   mutate(party = fct_recode(party, "Democrat" = "D", "Republican" = "R"))
 
 write_rds(press_plot, 
-          "~/Desktop/presidential_speeches/lets-get-presidential/press_plot.rds")
+          "~/Desktop/presidential_speeches/presidential.speeches/press_plot.rds")
 
   # ggplot(aes(x = president, y = number, fill = party)) + 
   # geom_col() +
