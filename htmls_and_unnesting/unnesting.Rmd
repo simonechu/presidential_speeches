@@ -192,7 +192,7 @@ i2017_topten <- i2017_sentiment %>%
        fill = "Sentiment") + 
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-write_rds(i2017_topten, "~/Desktop/presidential_speeches/lets-get-presidential/i2017_topten.rds")
+write_rds(i2017_topten, "~/Desktop/presidential_speeches/presidential-speeches/i2017_topten.rds")
 
 # 2009 Inaugural Address 
 i2009_topten <- i2009_sentiment %>%
@@ -210,7 +210,7 @@ i2009_topten <- i2009_sentiment %>%
        fill = "Sentiment") + 
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-write_rds(i2009_topten, "~/Desktop/presidential_speeches/lets-get-presidential/i2009_topten.rds")
+write_rds(i2009_topten, "~/Desktop/presidential_speeches/presidential-speeches/i2009_topten.rds")
 
 # 2001 Inaugural Address 
 i2001_topten <- i2001_sentiment %>%
@@ -228,7 +228,7 @@ i2001_topten <- i2001_sentiment %>%
        fill = "Sentiment") + 
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-write_rds(i2001_topten, "~/Desktop/presidential_speeches/lets-get-presidential/i2001_topten.rds")
+write_rds(i2001_topten, "~/Desktop/presidential_speeches/presidential-speeches/i2001_topten.rds")
 
 # 1993 Inaugural Address
 i1993_topten <- i1993_sentiment %>%
@@ -246,7 +246,7 @@ i1993_topten <- i1993_sentiment %>%
        fill = "Sentiment") + 
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-write_rds(i1993_topten, "~/Desktop/presidential_speeches/lets-get-presidential/i1993_topten.rds")
+write_rds(i1993_topten, "~/Desktop/presidential_speeches/presidential-speeches/i1993_topten.rds")
 
 # SOTU 2014
 sotu2014_topten <- sotu2014_sentiment %>%
@@ -264,7 +264,7 @@ sotu2014_topten <- sotu2014_sentiment %>%
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 write_rds(sotu2014_topten, 
-          "~/Desktop/presidential_speeches/lets-get-presidential/sotu2014_topten.rds")
+          "~/Desktop/presidential_speeches/presidential-speeches/sotu2014_topten.rds")
 
 # SOTU 2015
 sotu2015_topten <- sotu2015_sentiment %>%
@@ -282,7 +282,7 @@ sotu2015_topten <- sotu2015_sentiment %>%
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 write_rds(sotu2015_topten, 
-          "~/Desktop/presidential_speeches/lets-get-presidential/sotu2015_topten.rds")
+          "~/Desktop/presidential_speeches/presidential-speeches/sotu2015_topten.rds")
 
 # SOTU 2016
 sotu2016_topten <- sotu2016_sentiment %>%
@@ -300,7 +300,7 @@ sotu2016_topten <- sotu2016_sentiment %>%
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 write_rds(sotu2016_topten, 
-          "~/Desktop/presidential_speeches/lets-get-presidential/sotu2016_topten.rds")
+          "~/Desktop/presidential_speeches/presidential-speeches/sotu2016_topten.rds")
 
 # SOTU 2018
 sotu2018_topten <- sotu2018_sentiment %>%
@@ -318,7 +318,7 @@ sotu2018_topten <- sotu2018_sentiment %>%
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 write_rds(sotu2018_topten, 
-          "~/Desktop/presidential_speeches/lets-get-presidential/sotu2018_topten.rds")
+          "~/Desktop/presidential_speeches/presidential-speeches/sotu2018_topten.rds")
 
 # SOTU 2019
 sotu2019_topten <- sotu2019_sentiment %>%
@@ -336,7 +336,7 @@ sotu2019_topten <- sotu2019_sentiment %>%
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 write_rds(sotu2019_topten, 
-          "~/Desktop/presidential_speeches/lets-get-presidential/sotu2019_topten.rds")
+          "~/Desktop/presidential_speeches/presidential-speeches/sotu2019_topten.rds")
 
 # OBAMA PRESS
 pressobama_topten <- press_obama_sentiment %>%
@@ -354,7 +354,7 @@ pressobama_topten <- press_obama_sentiment %>%
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 write_rds(pressobama_topten, 
-          "~/Desktop/presidential_speeches/lets-get-presidential/pressobama_topten.rds")
+          "~/Desktop/presidential_speeches/presidential-speeches/pressobama_topten.rds")
 
 # TRUMP PRESS
 presstrump_topten <- press_trump_sentiment %>%
@@ -372,7 +372,7 @@ presstrump_topten <- press_trump_sentiment %>%
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 write_rds(presstrump_topten, 
-          "~/Desktop/presidential_speeches/lets-get-presidential/presstrump_topten.rds")
+          "~/Desktop/presidential_speeches/presidential-speeches/presstrump_topten.rds")
 
 ```
 
@@ -395,7 +395,7 @@ i1993_ot <- i1993_tidy %>%
   theme(axis.text.x=element_blank())
 
 write_rds(i1993_ot, 
-          "~/Desktop/presidential_speeches/lets-get-presidential/i1993_ot.rds")
+          "~/Desktop/presidential_speeches/presidential-speeches/i1993_ot.rds")
 
 # 2001 Inaugural Address
 i2001_ot <- i2001_tidy %>%
@@ -414,7 +414,7 @@ i2001_ot <- i2001_tidy %>%
   theme(axis.text.x=element_blank())
 
 write_rds(i2001_ot, 
-          "~/Desktop/presidential_speeches/lets-get-presidential/i2001_ot.rds")
+          "~/Desktop/presidential_speeches/presidential-speeches/i2001_ot.rds")
 
 # 2009 Inaugural Address
 i2009_ot <- i2009_tidy %>%
@@ -433,7 +433,7 @@ i2009_ot <- i2009_tidy %>%
   theme(axis.text.x=element_blank())
 
 write_rds(i2009_ot, 
-          "~/Desktop/presidential_speeches/lets-get-presidential/i2009_ot.rds")
+          "~/Desktop/presidential_speeches/presidential-speeches/i2009_ot.rds")
 
 # 2017 Inaugural Address
 i2017_ot <- i2017_tidy %>%
@@ -452,7 +452,7 @@ i2017_ot <- i2017_tidy %>%
   theme(axis.text.x=element_blank())
 
 write_rds(i2017_ot, 
-          "~/Desktop/presidential_speeches/lets-get-presidential/i2017_ot.rds")
+          "~/Desktop/presidential_speeches/presidential-speeches/i2017_ot.rds")
 
 # 2019 SOTU
 sotu2019_ot <- sotu2019_tidy %>%
@@ -471,7 +471,7 @@ sotu2019_ot <- sotu2019_tidy %>%
   theme(axis.text.x=element_blank())
 
 write_rds(sotu2019_ot, 
-          "~/Desktop/presidential_speeches/lets-get-presidential/sotu2019_ot.rds")
+          "~/Desktop/presidential_speeches/presidential-speeches/sotu2019_ot.rds")
 
 # 2018 SOTU
 sotu2018_ot <- sotu2018_tidy %>%
@@ -490,7 +490,7 @@ sotu2018_ot <- sotu2018_tidy %>%
   theme(axis.text.x=element_blank())
 
 write_rds(sotu2018_ot, 
-          "~/Desktop/presidential_speeches/lets-get-presidential/sotu2018_ot.rds")
+          "~/Desktop/presidential_speeches/presidential-speeches/sotu2018_ot.rds")
 
 # 2016 SOTU
 sotu2016_ot <- sotu2016_tidy %>%
@@ -509,7 +509,7 @@ sotu2016_ot <- sotu2016_tidy %>%
   theme(axis.text.x=element_blank())
 
 write_rds(sotu2016_ot, 
-          "~/Desktop/presidential_speeches/lets-get-presidential/sotu2016_ot.rds")
+          "~/Desktop/presidential_speeches/presidential-speeches/sotu2016_ot.rds")
 
 # 2015 SOTU
 sotu2015_ot <- sotu2015_tidy %>%
@@ -528,7 +528,7 @@ sotu2015_ot <- sotu2015_tidy %>%
   theme(axis.text.x=element_blank())
 
 write_rds(sotu2015_ot, 
-          "~/Desktop/presidential_speeches/lets-get-presidential/sotu2015_ot.rds")
+          "~/Desktop/presidential_speeches/presidential-speeches/sotu2015_ot.rds")
 
 # 2014 SOTU
 sotu2014_ot <- sotu2014_tidy %>%
@@ -547,7 +547,7 @@ sotu2014_ot <- sotu2014_tidy %>%
   theme(axis.text.x=element_blank())
 
 write_rds(sotu2014_ot, 
-          "~/Desktop/presidential_speeches/lets-get-presidential/sotu2014_ot.rds")
+          "~/Desktop/presidential_speeches/presidential-speeches/sotu2014_ot.rds")
 
 # Obama Press Conference
 pressobama_ot <- press_obama_tidy %>%
@@ -566,7 +566,7 @@ pressobama_ot <- press_obama_tidy %>%
   theme(axis.text.x=element_blank())
 
 write_rds(pressobama_ot, 
-          "~/Desktop/presidential_speeches/lets-get-presidential/pressobama_ot.rds")
+          "~/Desktop/presidential_speeches/presidential-speeches/pressobama_ot.rds")
 
 # Trump Press Conference
 presstrump_ot <- press_trump_tidy %>%
@@ -585,6 +585,6 @@ presstrump_ot <- press_trump_tidy %>%
   theme(axis.text.x=element_blank())
 
 write_rds(presstrump_ot, 
-          "~/Desktop/presidential_speeches/lets-get-presidential/presstrump_ot.rds")
+          "~/Desktop/presidential_speeches/presidential-speeches/presstrump_ot.rds")
 ```
 
