@@ -1,0 +1,12 @@
+name: presidentialspeeches
+title: presidentialspeeches
+username:
+account: simonechu
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 893680
+bundleId: 2042305
+url: https://simonechu.shinyapps.io/presidentialspeeches/
+when: 1556315348.31213
+asMultiple: FALSE
+asStatic: FALSE

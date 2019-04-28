@@ -102,6 +102,19 @@ i2017_sentiment <- i2017_tidy %>%
   inner_join(get_sentiments("bing")) %>%
   count(word, sentiment)
 
+# 2013 Inaugural Address 
+i2013 <- paste(readLines("inaugural2013.html"))
+
+i2013 <- data.frame(i2013, stringsAsFactors = FALSE)
+
+i2013_tidy <- i2013 %>%
+  unnest_tokens(word, i2013) %>%
+  filter(word != "p")
+
+i2013_sentiment <- i2013_tidy %>%
+  inner_join(get_sentiments("bing")) %>%
+  count(word, sentiment)
+
 # 2009 Inaugural Address 
 i2009 <- paste(readLines("inaugural2009.html"))
 
@@ -115,6 +128,19 @@ i2009_sentiment <- i2009_tidy %>%
   inner_join(get_sentiments("bing")) %>%
   count(word, sentiment)
 
+# 2005 Inaugural Address 
+i2005 <- paste(readLines("inaugural2005.html"))
+
+i2005 <- data.frame(i2005, stringsAsFactors = FALSE)
+
+i2005_tidy <- i2005 %>%
+  unnest_tokens(word, i2005) %>%
+  filter(word != "p")
+
+i2005_sentiment <- i2005_tidy %>%
+  inner_join(get_sentiments("bing")) %>%
+  count(word, sentiment)
+
 # 2001 Inaugural Address
 i2001 <- paste(readLines("inaugural2001.html"))
 
@@ -125,6 +151,19 @@ i2001_tidy <- i2001 %>%
   filter(word != "p")
 
 i2001_sentiment <- i2001_tidy %>%
+  inner_join(get_sentiments("bing")) %>%
+  count(word, sentiment)
+
+# 1997 Inaugural Address
+i1997 <- paste(readLines("inaugural1997.html"))
+
+i1997 <- data.frame(i1997, stringsAsFactors = FALSE)
+
+i1997_tidy <- i1997 %>%
+  unnest_tokens(word, i1997) %>%
+  filter(word != "p")
+
+i1997_sentiment <- i1997_tidy %>%
   inner_join(get_sentiments("bing")) %>%
   count(word, sentiment)
 
@@ -194,6 +233,24 @@ i2017_topten <- i2017_sentiment %>%
 
 write_rds(i2017_topten, "~/Desktop/presidential_speeches/presidential-speeches/i2017_topten.rds")
 
+# 2013 Inaugural Address
+i2013_topten <- i2013_sentiment %>%
+  arrange(desc(n)) %>%
+  slice(1:10) %>%
+  # Make word a factor in order of n
+  mutate(word = reorder(word, n)) %>% 
+  
+  ggplot(aes(x = word, y = n, fill = sentiment)) + 
+  geom_col() + 
+  scale_fill_manual(values=posneg) +
+  xlab("Word") + 
+  ylab("Number of Instances") + 
+  labs(title = "Top 10 Most Used Words in Barack Obama's Second Inaugural Address (2013)",
+       fill = "Sentiment") + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+write_rds(i2013_topten, "~/Desktop/presidential_speeches/presidential-speeches/i2013_topten.rds")
+
 # 2009 Inaugural Address 
 i2009_topten <- i2009_sentiment %>%
   arrange(desc(n)) %>%
@@ -211,6 +268,24 @@ i2009_topten <- i2009_sentiment %>%
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 write_rds(i2009_topten, "~/Desktop/presidential_speeches/presidential-speeches/i2009_topten.rds")
+
+# 2005 Inaugural Address 
+i2005_topten <- i2005_sentiment %>%
+  arrange(desc(n)) %>%
+  slice(1:10) %>%
+  # Make word a factor in order of n
+  mutate(word = reorder(word, n)) %>%
+  
+  ggplot(aes(x = word, y = n, fill = sentiment)) + 
+  geom_col() + 
+  scale_fill_manual(values=posneg) +
+  xlab("Word") + 
+  ylab("Number of Instances") + 
+  labs(title = "Top 10 Most Used Words in George W. Bush's Second Inaugural Address (2005)",
+       fill = "Sentiment") + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+write_rds(i2005_topten, "~/Desktop/presidential_speeches/presidential-speeches/i2005_topten.rds")
 
 # 2001 Inaugural Address 
 i2001_topten <- i2001_sentiment %>%
@@ -230,6 +305,24 @@ i2001_topten <- i2001_sentiment %>%
 
 write_rds(i2001_topten, "~/Desktop/presidential_speeches/presidential-speeches/i2001_topten.rds")
 
+# 1997 Inaugural Address
+i1997_topten <- i1997_sentiment %>%
+  arrange(desc(n)) %>%
+  slice(1:10) %>%
+  # Make word a factor in order of n
+  mutate(word = reorder(word, n)) %>%
+  
+  ggplot(aes(x = word, y = n, fill = sentiment)) + 
+  geom_col() + 
+  scale_fill_manual(values=posneg) +
+  xlab("Word") + 
+  ylab("Number of Instances") + 
+  labs(title = "Top 10 Most Used Words in Bill Clinton's Second Inaugural Address (1997)",
+       fill = "Sentiment") + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+write_rds(i1997_topten, "~/Desktop/presidential_speeches/presidential-speeches/i1997_topten.rds")
+
 # 1993 Inaugural Address
 i1993_topten <- i1993_sentiment %>%
   arrange(desc(n)) %>%
@@ -247,6 +340,7 @@ i1993_topten <- i1993_sentiment %>%
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 write_rds(i1993_topten, "~/Desktop/presidential_speeches/presidential-speeches/i1993_topten.rds")
+
 
 # SOTU 2014
 sotu2014_topten <- sotu2014_sentiment %>%
@@ -397,6 +491,25 @@ i1993_ot <- i1993_tidy %>%
 write_rds(i1993_ot, 
           "~/Desktop/presidential_speeches/presidential-speeches/i1993_ot.rds")
 
+# 1997 Inaugural Address
+i1997_ot <- i1997_tidy %>%
+  inner_join(get_sentiments("bing")) %>%
+  mutate(row = row_number()) %>%
+  count(index =  row %/% 5, sentiment) %>%
+  spread(sentiment, n, fill = 0) %>%
+  mutate(sentiment = positive - negative) %>%
+  
+  ggplot(aes(index, sentiment, fill = sentiment)) +
+  geom_bar(stat = "identity", show.legend = FALSE) +
+  labs(title = "How the Tone Changes",
+       subtitle = "A plot of density of emotion words over the course of the speech.") + 
+  xlab("Duration of Speech") +
+  ylab("Expression") +
+  theme(axis.text.x=element_blank())
+
+write_rds(i1997_ot, 
+          "~/Desktop/presidential_speeches/presidential-speeches/i1997_ot.rds")
+
 # 2001 Inaugural Address
 i2001_ot <- i2001_tidy %>%
   inner_join(get_sentiments("bing")) %>%
@@ -416,6 +529,25 @@ i2001_ot <- i2001_tidy %>%
 write_rds(i2001_ot, 
           "~/Desktop/presidential_speeches/presidential-speeches/i2001_ot.rds")
 
+# 2005 Inaugural Address
+i2005_ot <- i2005_tidy %>%
+  inner_join(get_sentiments("bing")) %>%
+  mutate(row = row_number()) %>%
+  count(index =  row %/% 5, sentiment) %>%
+  spread(sentiment, n, fill = 0) %>%
+  mutate(sentiment = positive - negative) %>%
+  
+  ggplot(aes(index, sentiment, fill = sentiment)) +
+  geom_bar(stat = "identity", show.legend = FALSE) +
+  labs(title = "How the Tone Changes",
+       subtitle = "A plot of density of emotion words over the course of the speech.") + 
+  xlab("Duration of Speech") +
+  ylab("Expression") +
+  theme(axis.text.x=element_blank())
+
+write_rds(i2005_ot, 
+          "~/Desktop/presidential_speeches/presidential-speeches/i2005_ot.rds")
+
 # 2009 Inaugural Address
 i2009_ot <- i2009_tidy %>%
   inner_join(get_sentiments("bing")) %>%
@@ -434,6 +566,25 @@ i2009_ot <- i2009_tidy %>%
 
 write_rds(i2009_ot, 
           "~/Desktop/presidential_speeches/presidential-speeches/i2009_ot.rds")
+
+# 2013 Inaugural Address
+i2013_ot <- i2013_tidy %>%
+  inner_join(get_sentiments("bing")) %>%
+  mutate(row = row_number()) %>%
+  count(index =  row %/% 5, sentiment) %>%
+  spread(sentiment, n, fill = 0) %>%
+  mutate(sentiment = positive - negative) %>%
+  
+  ggplot(aes(index, sentiment, fill = sentiment)) +
+  geom_bar(stat = "identity", show.legend = FALSE) +
+  labs(title = "How the Tone Changes",
+       subtitle = "A plot of density of emotion words over the course of the speech.") + 
+  xlab("Duration of Speech") +
+  ylab("Expression") +
+  theme(axis.text.x=element_blank())
+
+write_rds(i2013_ot, 
+          "~/Desktop/presidential_speeches/presidential-speeches/i2013_ot.rds")
 
 # 2017 Inaugural Address
 i2017_ot <- i2017_tidy %>%
