@@ -15,8 +15,11 @@ library(tidyverse)
 # Importing plots that I've made (of which there are many)! 
 
 i1993_topten <- read_rds("./i1993_topten.rds")
+i1997_topten <- read_rds("./i1997_topten.rds")
 i2001_topten <- read_rds("./i2001_topten.rds")
+i2005_topten <- read_rds("./i2005_topten.rds")
 i2009_topten <- read_rds("./i2009_topten.rds")
+i2013_topten <- read_rds("./i2013_topten.rds")
 i2017_topten <- read_rds("./i2017_topten.rds")
 press_plot <- read_rds("./press_plot.rds")
 pressobama_topten <- read_rds("./pressobama_topten.rds")
@@ -27,8 +30,11 @@ sotu2016_topten <- read_rds("./sotu2016_topten.rds")
 sotu2018_topten <- read_rds("./sotu2018_topten.rds")
 sotu2019_topten <- read_rds("./sotu2019_topten.rds")
 i1993_ot <- read_rds("./i1993_ot.rds")
+i1997_ot <- read_rds("./i1997_ot.rds")
 i2001_ot <- read_rds("./i2001_ot.rds")
+i2005_ot <- read_rds("./i2005_ot.rds")
 i2009_ot <- read_rds("./i2009_ot.rds")
+i2013_ot <- read_rds("./i2013_ot.rds")
 i2017_ot <- read_rds("./i2017_ot.rds")
 pressobama_ot <- read_rds("./pressobama_ot.rds")
 presstrump_ot <- read_rds("./presstrump_ot.rds")
@@ -50,8 +56,9 @@ ui <- fluidPage(theme = shinytheme("lumen"),
               sidebarLayout(
                 sidebarPanel(selectInput(inputId = "ia",
                                          label = "Select an Inaugural Address",
-                                         choices = c("Trump, 2017", "Obama, 2009", 
-                                                     "Bush, 2001", "Clinton, 1993"),
+                                         choices = c("Trump, 2017", "Obama, 2013", "Obama, 2009", 
+                                                     "Bush, 2005", "Bush, 2001", 
+                                                     "Clinton, 1997", "Clinton, 1993"),
                                          multiple = FALSE, 
                                          selected = "Trump, 2017"),
                              h4("Notes"),
@@ -96,12 +103,24 @@ server <- function(input, output) {
       "'Great' was the most frequently-appearing word in Trump's Inaugural Address, and a part of his campaign motto to 'Make America Great Again'. This Inaugural Address was 1433 words long."
     }
     
+    else if (input$ia == "Obama, 2013") {
+      "Obama's second Inaugural Address was markedly more positive overall compared to his first Inaugural Address. This speech was 2096 words long."
+    }
+    
     else if (input$ia == "Obama, 2009") {
       "Obama first took office during the Great Recession, which may be why the word 'crisis' appears so often in his Inaugural Address -- as well as his emphasis on 'hard work'. This Inaugural Address was 2395 words long."
     }
     
+    else if (input$ia == "Bush, 2005") {
+      "PLACEHOLDER TEXT"
+    }
+    
     else if (input$ia == "Bush, 2001") {
       "The ten most frequently used words in Bush's Inaugural Address were all coded as positive. This Inaugural Address was 1592 words long."
+    }
+    
+    else if (input$ia == "Clinton, 1997") {
+      "PLACEHOLDER TEXT"
     }
     
     else if (input$ia == "Clinton, 1993") {
@@ -114,12 +133,24 @@ server <- function(input, output) {
       i2017_topten
       }
     
+    else if (input$ia == "Obama, 2013") {
+      i2013_topten
+    }
+    
     else if (input$ia == "Obama, 2009") {
       i2009_topten
     }
     
+    else if (input$ia == "Bush, 2005") {
+      i2005_topten
+    }
+    
     else if (input$ia == "Bush, 2001") {
       i2001_topten
+    }
+    
+    else if (input$ia == "Clinton, 1997") {
+      i1997_topten
     }
     
     else if (input$ia == "Clinton, 1993") {
@@ -132,12 +163,24 @@ server <- function(input, output) {
       i2017_ot
     }
     
+    else if (input$ia == "Obama, 2013") {
+      i2013_ot
+    }
+    
     else if (input$ia == "Obama, 2009") {
       i2009_ot
     }
     
+    else if (input$ia == "Bush, 2005") {
+      i2005_ot
+    }
+    
     else if (input$ia == "Bush, 2001") {
       i2001_ot
+    }
+    
+    else if (input$ia == "Clinton, 1997") {
+      i1997_ot
     }
     
     else if (input$ia == "Clinton, 1993") {
