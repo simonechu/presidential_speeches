@@ -7,6 +7,11 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
+library(tidytext)
+library(ggplot2)
+library(gt)
+library(tidyverse)
 ```
 
 ```{r}
@@ -83,10 +88,10 @@ fwobama_topten <- fw_obama_sentiment %>%
        fill = "Sentiment") + 
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-write_rds(i2017_topten, 
+write_rds(fwobama_topten, 
           "~/Desktop/presidential_speeches/presidential-speeches/fwobama_topten.rds")
 
-# Obama Farewell Address
+# Bush Farewell Address
 fwbush_topten <- fw_bush_sentiment %>%
   arrange(desc(n)) %>%
   slice(1:10) %>%
@@ -98,11 +103,98 @@ fwbush_topten <- fw_bush_sentiment %>%
   scale_fill_manual(values=posneg) +
   xlab("Word") + 
   ylab("Number of Instances") + 
-  labs(title = "Top 10 Most Used Words in Obama's Farewell Address",
+  labs(title = "Top 10 Most Used Words in Bush's Farewell Address",
        fill = "Sentiment") + 
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-write_rds(i2017_topten, 
-          "~/Desktop/presidential_speeches/presidential-speeches/fwobama_topten.rds")
+write_rds(fwbush_topten, 
+          "~/Desktop/presidential_speeches/presidential-speeches/fwbush_topten.rds")
+
+# Clinton Farewell Address
+fwclinton_topten <- fw_clinton_sentiment %>%
+  arrange(desc(n)) %>%
+  slice(1:10) %>%
+  # Make word a factor in order of n
+  mutate(word = reorder(word, n)) %>% 
+  
+  ggplot(aes(x = word, y = n, fill = sentiment)) + 
+  geom_col() + 
+  scale_fill_manual(values=posneg) +
+  xlab("Word") + 
+  ylab("Number of Instances") + 
+  labs(title = "Top 10 Most Used Words in Clinton's Farewell Address",
+       fill = "Sentiment") + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+write_rds(fwclinton_topten, 
+          "~/Desktop/presidential_speeches/presidential-speeches/fwclinton_topten.rds")
+```
+
+
+```{r OVER_TIME}
+
+# OBAMA FAREWELL ADDRESS
+fwobama_ot <- fw_obama_tidy %>%
+  inner_join(get_sentiments("bing")) %>%
+  mutate(row = row_number()) %>%
+  count(index =  row %/% 12, sentiment) %>%
+  spread(sentiment, n, fill = 0) %>%
+  mutate(sentiment = positive - negative) %>%
+  
+  ggplot(aes(index, sentiment, fill = sentiment)) +
+  geom_bar(stat = "identity", show.legend = FALSE) +
+  labs(title = "How the Tone Changes",
+       subtitle = "A plot of density of emotion words over the course of the Farewell Address.") + 
+  xlab("Duration of Speech") +
+  ylab("Expression") +
+  theme(axis.text.x=element_blank())
+
+write_rds(fwobama_ot, 
+          "~/Desktop/presidential_speeches/presidential-speeches/fwobama_ot.rds")
+
+# BUSH FAREWELL ADDRESS
+fwbush_ot <- fw_bush_tidy %>%
+  inner_join(get_sentiments("bing")) %>%
+  mutate(row = row_number()) %>%
+  count(index =  row %/% 12, sentiment) %>%
+  spread(sentiment, n, fill = 0) %>%
+  mutate(sentiment = positive - negative) %>%
+  
+  ggplot(aes(index, sentiment, fill = sentiment)) +
+  geom_bar(stat = "identity", show.legend = FALSE) +
+  labs(title = "How the Tone Changes",
+       subtitle = "A plot of density of emotion words over the course of the Farewell Address.") + 
+  xlab("Duration of Speech") +
+  ylab("Expression") +
+  theme(axis.text.x=element_blank())
+
+write_rds(fwbush_ot, 
+          "~/Desktop/presidential_speeches/presidential-speeches/fwbush_ot.rds")
+
+# CLINTON FAREWELL ADDRESS
+fwclinton_ot <- fw_clinton_tidy %>%
+  inner_join(get_sentiments("bing")) %>%
+  mutate(row = row_number()) %>%
+  count(index =  row %/% 12, sentiment) %>%
+  spread(sentiment, n, fill = 0) %>%
+  mutate(sentiment = positive - negative) %>%
+  
+  ggplot(aes(index, sentiment, fill = sentiment)) +
+  geom_bar(stat = "identity", show.legend = FALSE) +
+  labs(title = "How the Tone Changes",
+       subtitle = "A plot of density of emotion words over the course of the Farewell Address.") + 
+  xlab("Duration of Speech") +
+  ylab("Expression") +
+  theme(axis.text.x=element_blank())
+
+write_rds(fwbush_ot, 
+          "~/Desktop/presidential_speeches/presidential-speeches/fwclinton_ot.rds")
+```
+
+```{r FINAL_APPROVAL_RATING}
+
+approv <- read_csv("approval_ratings.csv")
+
+View(approv)
 ```
 
