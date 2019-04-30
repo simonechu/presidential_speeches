@@ -110,14 +110,14 @@ ui <- fluidPage(theme = shinytheme("lumen"),
                                          choices = c("Barack Obama", "George W. Bush",
                                                      "Bill Clinton"),
                                          multiple = FALSE, 
-                                         selected = "Trump, 2019")), 
+                                         selected = "Barack Obama"))), 
                 mainPanel(h3("Sentiment Analysis of Farewell Address"),
                   plotOutput("PLACEHOLDER_TOP10"), 
                   plotOutput("PLACEHOLDER_OT"),
                   plotOutput("PLACEHOLDER_APPROVALRATINGS"),
                   h3("Closing Words of Farewell Address"),
-                  textOutput("PLACEHOLDER"),
-              ),
+                  h4(Output("closing"))
+              )),
      
      tabPanel("About",
               h1("About"), tags$p("This app, which compares presidential speeches to each other, was made for the", tags$a("Gov. 1005: Data", href = "https://www.davidkane.info/files/gov_1005_spring_2019.html"), "course at Harvard. The transcripts for each speech are from the", tags$a("UC Santa Barbara American Presidency Project,", href = "https://www.presidency.ucsb.edu/"), "as are other data on press conferences and speech duration. The code for this project can be found", tags$a("here.", href="https://github.com/simonechu/presidential_speeches"), "Thanks for reading! - Simone Chu"))
@@ -284,6 +284,24 @@ server <- function(input, output) {
     
     presstrump_ot
     
+  })
+  
+  output$closing <- renderText({
+    if (input$farewell == "Barack Obama") {
+      "Yes, we did. Yes, we can.
+
+      Thank you. God bless you. May God continue to bless the United States of America. Thank you."
+    }
+    
+    else if (input$farewell == "George W. Bush") {
+      "And so, my fellow Americans, for the final time, good night. May God bless this house and our next President, and may God bless you and our wonderful country. Thank you."
+    }
+    
+    else if (input$farewell == "Bill Clinton") {
+      "My days in this office are nearly through, but my days of service, I hope, are not. In the years ahead, I will never hold a position higher or a covenant more sacred than that of President of the United States. But there is no title I will wear more proudly than that of citizen.
+
+      Thank you. God bless you, and God bless America."
+    }
   })
 
 }
