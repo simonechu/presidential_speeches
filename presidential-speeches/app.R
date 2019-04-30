@@ -104,10 +104,13 @@ ui <- fluidPage(theme = shinytheme("lumen"),
               mainPanel(
                 h3("President Obama's Press Conference - Jan. 18, 2017"),
                 plotOutput("ot_bo"),
+                h5(" "),
                 h3("President Trump's Press Conference - Feb. 16, 2017"), 
                 plotOutput("ot_dt"), 
+                h5(" "),
                 h4("Trump participated in fewer news conferences than Obama did during their respective first years in office. However, Trump is by no means the most difficult-to-access president that the press has seen..."),
                 plotOutput("pressconfs"),
+                h5(" "),
                 h4("...that particular honor goes to his predecessors Gerald Ford and Ronald Reagan."),
                    align = "center")),
      
@@ -125,8 +128,9 @@ ui <- fluidPage(theme = shinytheme("lumen"),
                   plotOutput("fw_topten"), 
                   plotOutput("fw_ot"),
                   tableOutput("approv"),
+                  h1(" "),
                   h3("Closing Words of Farewell Address"),
-                  h4(textOutput("closing"))))),
+                  h5(textOutput("closing"))))),
      
      tabPanel("About",
               h1("About"), tags$p("This app, which compares presidential speeches to each other, was made for the", tags$a("Gov. 1005: Data", href = "https://www.davidkane.info/files/gov_1005_spring_2019.html"), "course at Harvard. The transcripts for each speech are from the", tags$a("UC Santa Barbara American Presidency Project,", href = "https://www.presidency.ucsb.edu/"), "as are other data on press conferences and speech duration. The code for this project can be found", tags$a("here.", href="https://github.com/simonechu/presidential_speeches"), "Thanks for reading! - Simone Chu"))
@@ -323,7 +327,7 @@ server <- function(input, output) {
     }
   })
   
-  output$approv <- renderTable ({
+  output$approv <- renderUI({
     if (input$farewell == "Barack Obama") {
       obama_approval
     }
