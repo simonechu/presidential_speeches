@@ -73,6 +73,9 @@ fw_clinton_sentiment <- fw_clinton_tidy %>%
 ```{r TOPTEN}
 posneg <- c("negative" = "#46b5e0", "positive" = "#fdcb6e")
 
+# Same process as before -- assigned specific colors to values to ensure that they stay 
+# consistent! 
+
 # Obama Farewell Address
 fwobama_topten <- fw_obama_sentiment %>%
   arrange(desc(n)) %>%
@@ -201,11 +204,17 @@ approv <- read_csv("approval_ratings.csv") %>%
 obama_approval <- approv %>%
   filter(president == "Obama") %>%
   select(-president) %>%
+  
+  # Since each table is by president, there's no need to have the "president" column present.
+  
   gt() %>%
   tab_header(title = "Changes in Approval Rating Over Term",
              subtitle = "Barack Obama, 2009 - 2017") %>%
   tab_source_note(md("Source: UCSB Presidency Project")) %>%
   fmt_percent(columns = vars(approve, disapprove, no_opinion), decimals = 0) %>%
+  
+  # Percentages look nice. Let's do it. 
+  
   cols_label(time = " ",
              approve = "Approve",
              disapprove = "Disapprove",
