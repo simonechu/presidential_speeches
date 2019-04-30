@@ -213,7 +213,7 @@ press_trump_sentiment <- press_trump_tidy %>%
 
 ```{r top_tens}
 
-posneg <- c("#46b5e0", "#fdcb6e")
+posneg <- c("negative" = "#46b5e0", "positive" = "#fdcb6e")
 
 # 2017 Inaugural Address
 i2017_topten <- i2017_sentiment %>%
@@ -738,4 +738,5 @@ presstrump_ot <- press_trump_tidy %>%
 write_rds(presstrump_ot, 
           "~/Desktop/presidential_speeches/presidential-speeches/presstrump_ot.rds")
 ```
+
 

@@ -52,7 +52,7 @@ ui <- fluidPage(theme = shinytheme("lumen"),
      
      tabPanel("Inaugural Addresses",
               
-              h1("What makes an Inaugural Address?"),
+              h1("What Makes an Inaugural Address?"),
               sidebarLayout(
                 sidebarPanel(selectInput(inputId = "ia",
                                          label = "Select an Inaugural Address",
@@ -63,11 +63,12 @@ ui <- fluidPage(theme = shinytheme("lumen"),
                                          selected = "Trump, 2017"),
                              h4("Notes"),
                              textOutput("i_analysis")),
-                mainPanel(plotOutput("i_topten"), plotOutput("i_ot")))),
+                mainPanel(plotOutput("i_topten"), plotOutput("i_ot"), 
+                          h3("Takeaways"), textOutput("ia_takeaways")))),
      
      tabPanel("State of the Union",
               
-              h1("What makes a State of the Union speech?"),
+              h1("What Makes a State of the Union Speech?"),
               sidebarLayout(
                 sidebarPanel(selectInput(inputId = "sotu",
                                          label = "Select a Year",
@@ -76,21 +77,24 @@ ui <- fluidPage(theme = shinytheme("lumen"),
                                                      "Obama, 2014"),
                                          multiple = FALSE, 
                                          selected = "Trump, 2019")), 
-                mainPanel(plotOutput("sotu_topten"), plotOutput("sotu_ot")))),
+                mainPanel(plotOutput("sotu_topten"), plotOutput("sotu_ot"),
+                          h5("SOTU speeches were markedly less positive than Inaugural Addresses overall.")))),
      
      tabPanel("Press Relations",
               
-              h1("An Analysis of Presidential Press Relations"),
+              h1("A Brief Analysis of Presidential Press Relations"),
               mainPanel(
                 h3("President Obama's Press Conference - Jan. 18, 2017"),
                 plotOutput("ot_bo"),
                 h3("President Trump's Press Conference - Feb. 16, 2017"), 
                 plotOutput("ot_dt"), 
-                h4("Trump hosted fewer press conferences than Obama did during their respective first years in office. However, Trump is by no means the most difficult-to-access president that the press has seen..."),
+                h4("Trump participated in fewer news conferences than Obama did during their respective first years in office. However, Trump is by no means the most difficult-to-access president that the press has seen..."),
                 plotOutput("pressconfs"),
+                h4("...that particular honor goes to his predecessors Gerald Ford and Ronald Reagan."),
                    align = "center")),
      
-     tabPanel("About", htmlOutput("message"))
+     tabPanel("About",
+              h1("About"), tags$p("This app, which compares presidential speeches to each other, was made for the", tags$a("Gov. 1005: Data", href = "https://www.davidkane.info/files/gov_1005_spring_2019.html"), "course at Harvard. The transcripts for each speech are from the", tags$a("UC Santa Barbara American Presidency Project,", href = "https://www.presidency.ucsb.edu/"), "as are other data on press conferences and speech duration. The code for this project can be found", tags$a("here.", href="https://github.com/simonechu/presidential_speeches")))
    )
 
 )
@@ -112,7 +116,7 @@ server <- function(input, output) {
     }
     
     else if (input$ia == "Bush, 2005") {
-      "PLACEHOLDER TEXT"
+      "This speech was 2071 words long."
     }
     
     else if (input$ia == "Bush, 2001") {
@@ -120,7 +124,7 @@ server <- function(input, output) {
     }
     
     else if (input$ia == "Clinton, 1997") {
-      "PLACEHOLDER TEXT"
+      "This speech was 2155 words long."
     }
     
     else if (input$ia == "Clinton, 1993") {
@@ -186,6 +190,10 @@ server <- function(input, output) {
     else if (input$ia == "Clinton, 1993") {
       i1993_ot
     }
+  })
+  
+  output$ia_takeaways <- renderText({
+    "The one thing each speech has in common: it ends on a positive note, which makes sense -- no one wants to start their presidency off on a downer."
   })
   
   output$sotu_topten <- renderPlot({
@@ -254,17 +262,6 @@ server <- function(input, output) {
   output$ot_dt <- renderPlot({
     
     presstrump_ot
-    
-  })
-  
-  output$message <- renderUI({
-    str0 <- paste(" ")
-    str1 <- paste("About")
-    str2 <- paste("This app, which compares presidential speeches to each other, was made for the Gov. 1005: Data course at Harvard.")
-    str3 <- paste("The transcripts for each speech are from the UC Santa Barbara American Presidency Project, as is other data on press conferences and speech duration.")
-    str4 <- paste("The code for this project can be found at https://github.com/simonechu/presidential_speeches")
-    
-    HTML(paste(tags$ul(str0, h3(str1, align = "center"), p(str2), p(str3), p(str4))))
     
   })
 
