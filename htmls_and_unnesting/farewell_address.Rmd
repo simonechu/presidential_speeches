@@ -9,22 +9,100 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+```{r}
+# FOR OBAMA'S FAREWELL ADDRESS
+fw_obama <- paste(readLines("fw_obama.html"))
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+fw_obama <- data.frame(fw_obama, stringsAsFactors = FALSE)
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+  # Before I could work with the transcripts, I needed to read them out of their respective
+  # html files and into a dataframe. 
 
-```{r cars}
-summary(cars)
+fw_obama_tidy <- fw_obama %>%
+  unnest_tokens(word, fw_obama) %>%
+  filter(word != "p")
+
+  # I then used unnest_tokens to turn each word into its own value. 
+
+  # Paragraph breaks were denoted with a "<p>", so I filtered that out because it was recorded
+  # as appearing the most frequently. 
+
+fw_obama_sentiment <- fw_obama_tidy %>%
+  inner_join(get_sentiments("bing")) %>%
+  count(word, sentiment)
+
+  # I chose to use the "bing" sentiments dictionary for my purposes because I didn't particularly
+  # need specific emotions assigned to each word -- positive and negative was good enough. 
+
+  # Rinse and repeat! 
+
+# FOR BUSH'S FAREWELL ADDRESS
+fw_bush <- paste(readLines("fw_bush.html"))
+
+fw_bush <- data.frame(fw_bush, stringsAsFactors = FALSE)
+
+fw_bush_tidy <- fw_bush %>%
+  unnest_tokens(word, fw_bush) %>%
+  filter(word != "p")
+
+fw_bush_sentiment <- fw_bush_tidy %>%
+  inner_join(get_sentiments("bing")) %>%
+  count(word, sentiment)
+
+# FOR CLINTON'S FAREWELL ADDRESS
+fw_clinton <- paste(readLines("fw_clinton.html"))
+
+fw_clinton <- data.frame(fw_clinton, stringsAsFactors = FALSE)
+
+fw_clinton_tidy <- fw_clinton %>%
+  unnest_tokens(word, fw_clinton) %>%
+  filter(word != "p")
+
+fw_clinton_sentiment <- fw_clinton_tidy %>%
+  inner_join(get_sentiments("bing")) %>%
+  count(word, sentiment)
+
 ```
 
-## Including Plots
+```{r TOPTEN}
+posneg <- c("negative" = "#46b5e0", "positive" = "#fdcb6e")
 
-You can also embed plots, for example:
+# Obama Farewell Address
+fwobama_topten <- fw_obama_sentiment %>%
+  arrange(desc(n)) %>%
+  slice(1:10) %>%
+  # Make word a factor in order of n
+  mutate(word = reorder(word, n)) %>% 
+  
+  ggplot(aes(x = word, y = n, fill = sentiment)) + 
+  geom_col() + 
+  scale_fill_manual(values=posneg) +
+  xlab("Word") + 
+  ylab("Number of Instances") + 
+  labs(title = "Top 10 Most Used Words in Obama's Farewell Address",
+       fill = "Sentiment") + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+write_rds(i2017_topten, 
+          "~/Desktop/presidential_speeches/presidential-speeches/fwobama_topten.rds")
+
+# Obama Farewell Address
+fwbush_topten <- fw_bush_sentiment %>%
+  arrange(desc(n)) %>%
+  slice(1:10) %>%
+  # Make word a factor in order of n
+  mutate(word = reorder(word, n)) %>% 
+  
+  ggplot(aes(x = word, y = n, fill = sentiment)) + 
+  geom_col() + 
+  scale_fill_manual(values=posneg) +
+  xlab("Word") + 
+  ylab("Number of Instances") + 
+  labs(title = "Top 10 Most Used Words in Obama's Farewell Address",
+       fill = "Sentiment") + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+write_rds(i2017_topten, 
+          "~/Desktop/presidential_speeches/presidential-speeches/fwobama_topten.rds")
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
