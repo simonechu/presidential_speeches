@@ -22,9 +22,14 @@ sotu2019 <- paste(readLines("sotu2019.html"))
 
 sotu2019 <- data.frame(sotu2019, stringsAsFactors = FALSE)
 
+  # Before I could work with the transcripts, I needed to read them out of their respective
+  # html files and into a dataframe. 
+
 sotu2019_tidy <- sotu2019 %>%
   unnest_tokens(word, sotu2019) %>%
   filter(word != "p")
+
+  # I then used unnest_tokens to turn each word into its own value. 
 
   # Paragraph breaks were denoted with a "<p>", so I filtered that out because it was recorded
   # as appearing the most frequently. 
@@ -32,6 +37,11 @@ sotu2019_tidy <- sotu2019 %>%
 sotu2019_sentiment <- sotu2019_tidy %>%
   inner_join(get_sentiments("bing")) %>%
   count(word, sentiment)
+
+  # I chose to use the "bing" sentiments dictionary for my purposes because I didn't particularly
+  # need specific emotions assigned to each word -- positive and negative was good enough. 
+
+  # Rinse and repeat! 
 
 # FOR SOTU 2018
 sotu2018 <- paste(readLines("sotu2018.html"))
@@ -89,7 +99,10 @@ sotu2014_sentiment <- sotu2014_tidy %>%
 
 ```{r inaugural_addresses}
 
-# 2017 Inaugural Address - (Same process as for State of the Union!)
+# This is exactly the same process as I used for the State of the Union transcripts, so I'll 
+# just leave the code as is. 
+
+# 2017 Inaugural Address 
 i2017 <- paste(readLines("inaugural2017.html"))
 
 i2017 <- data.frame(i2017, stringsAsFactors = FALSE)
@@ -182,6 +195,9 @@ i1993_sentiment <- i1993_tidy %>%
 
 ```
 ```{r press}
+
+# Rinse and repeat once more for news conference data! 
+
 # NEWS CONFERENCE, PRESIDENT OBAMA
 press_obama <- paste(readLines("press_obama_2017-01-18.html"))
 

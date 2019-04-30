@@ -33,19 +33,27 @@ colors <- c("#1382ff", "#e64a4a")
 # Time to make the plot! 
 
 press_plot <- press_conferences %>%
-  mutate(party = fct_recode(party, "Democrat" = "D", "Republican" = "R"))
+  mutate(party = fct_recode(party, "Democrat" = "D", "Republican" = "R")) %>%
+  ggplot(aes(x = president, y = number, fill = party)) + 
+      geom_col() +
+      scale_fill_manual(values=colors) + 
+  
+  # I finally figured out how to assign specific colors to values -- this could've come in
+  # handy on earlier psets, but better late than never! 
+  
+      xlab("President") + 
+      ylab("Number of Press Conferences in First Year") + 
+      labs(title = "Number of Press Conferences Held in First Year of Presidency",
+           fill = "Party") + 
+      theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+  # Rotated the text on the x-axis by 45 degrees so that the words wouldn't overlap over each
+  # other. 
 
 write_rds(press_plot, 
           "~/Desktop/presidential_speeches/presidential-speeches/press_plot.rds")
 
-  # ggplot(aes(x = president, y = number, fill = party)) + 
-  # geom_col() +
-  # scale_fill_manual(values=colors) + 
-  # xlab("President") + 
-  # ylab("Number of Press Conferences in First Year") + 
-  # labs(title = "Number of Press Conferences Held in First Year of Presidency",
-  #      fill = "Party") + 
-  # theme(axis.text.x = element_text(angle = 45, hjust = 1))
+# I wrote the plot into an rds file so that it could easily be called by the Shiny app later on. 
 
 ```
 

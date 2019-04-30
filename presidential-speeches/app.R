@@ -45,6 +45,7 @@ sotu2018_ot <- read_rds("./sotu2018_ot.rds")
 sotu2019_ot <- read_rds("./sotu2019_ot.rds")
 
 # Define UI for application
+# I picked this theme because it looked nice! Yay themes! 
 ui <- fluidPage(theme = shinytheme("lumen"),
    
    # Application title
@@ -63,8 +64,15 @@ ui <- fluidPage(theme = shinytheme("lumen"),
                                          selected = "Trump, 2017"),
                              h4("Notes"),
                              textOutput("i_analysis")),
+                
+                # I had the selector appear in the sidebar, because that made the most sense. 
+                # I also thought it would be cool to include a note or two in the sidebar with
+                # each plot, just to add a bit of context. 
+                
                 mainPanel(plotOutput("i_topten"), plotOutput("i_ot"), 
                           h3("Takeaways"), textOutput("ia_takeaways")))),
+     
+                # These are the graphs I wanted to include. 
      
      tabPanel("State of the Union",
               
@@ -79,7 +87,7 @@ ui <- fluidPage(theme = shinytheme("lumen"),
                                          selected = "Trump, 2019")), 
                 mainPanel(plotOutput("sotu_topten"), plotOutput("sotu_ot"),
                           h5("SOTU speeches were markedly less positive than Inaugural Addresses overall.")))),
-     
+          
      tabPanel("Press Relations",
               
               h1("A Brief Analysis of Presidential Press Relations"),
@@ -93,14 +101,36 @@ ui <- fluidPage(theme = shinytheme("lumen"),
                 h4("...that particular honor goes to his predecessors Gerald Ford and Ronald Reagan."),
                    align = "center")),
      
+     tabPanel("Last Words in Office", 
+              
+              h1("Last Words in Office"),
+              sidebarLayout(
+                sidebarPanel(selectInput(inputId = "farewell",
+                                         label = "Select a President",
+                                         choices = c("Barack Obama", "George W. Bush",
+                                                     "Bill Clinton"),
+                                         multiple = FALSE, 
+                                         selected = "Trump, 2019")), 
+                mainPanel(h3("Sentiment Analysis of Farewell Address"),
+                  plotOutput("PLACEHOLDER_TOP10"), 
+                  plotOutput("PLACEHOLDER_OT"),
+                  plotOutput("PLACEHOLDER_APPROVALRATINGS"),
+                  h3("Closing Words of Farewell Address"),
+                  textOutput("PLACEHOLDER"),
+              ),
+     
      tabPanel("About",
-              h1("About"), tags$p("This app, which compares presidential speeches to each other, was made for the", tags$a("Gov. 1005: Data", href = "https://www.davidkane.info/files/gov_1005_spring_2019.html"), "course at Harvard. The transcripts for each speech are from the", tags$a("UC Santa Barbara American Presidency Project,", href = "https://www.presidency.ucsb.edu/"), "as are other data on press conferences and speech duration. The code for this project can be found", tags$a("here.", href="https://github.com/simonechu/presidential_speeches")))
+              h1("About"), tags$p("This app, which compares presidential speeches to each other, was made for the", tags$a("Gov. 1005: Data", href = "https://www.davidkane.info/files/gov_1005_spring_2019.html"), "course at Harvard. The transcripts for each speech are from the", tags$a("UC Santa Barbara American Presidency Project,", href = "https://www.presidency.ucsb.edu/"), "as are other data on press conferences and speech duration. The code for this project can be found", tags$a("here.", href="https://github.com/simonechu/presidential_speeches"), "Thanks for reading! - Simone Chu"))
    )
-
+          # I used the tags$p to include text instead of assigning it an output because this was
+          # the best way I could find to include hyperlinks in text. 
 )
 
 # Define server logic
 server <- function(input, output) {
+  
+          # Since my plots were already made, it was simple to program the server to fetch
+          # each relevant plot based on the selected option. 
   
   output$i_analysis <- renderText({
     if (input$ia == "Trump, 2017") {
@@ -241,16 +271,7 @@ server <- function(input, output) {
   })
   
   output$pressconfs <- renderPlot({
-    
-    press_plot %>%
-    ggplot(aes(x = president, y = number, fill = party)) + 
-      geom_col() +
-      scale_fill_manual(values=colors) + 
-      xlab("President") + 
-      ylab("Number of Press Conferences in First Year") + 
-      labs(title = "Number of Press Conferences Held in First Year of Presidency",
-           fill = "Party") + 
-      theme(axis.text.x = element_text(angle = 45, hjust = 1))
+    press_plot
   })
   
   output$ot_bo <- renderPlot({
