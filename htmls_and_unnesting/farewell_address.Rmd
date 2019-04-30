@@ -138,7 +138,7 @@ write_rds(fwclinton_topten,
 fwobama_ot <- fw_obama_tidy %>%
   inner_join(get_sentiments("bing")) %>%
   mutate(row = row_number()) %>%
-  count(index =  row %/% 12, sentiment) %>%
+  count(index =  row %/% 10, sentiment) %>%
   spread(sentiment, n, fill = 0) %>%
   mutate(sentiment = positive - negative) %>%
   
@@ -157,7 +157,7 @@ write_rds(fwobama_ot,
 fwbush_ot <- fw_bush_tidy %>%
   inner_join(get_sentiments("bing")) %>%
   mutate(row = row_number()) %>%
-  count(index =  row %/% 12, sentiment) %>%
+  count(index =  row %/% 6, sentiment) %>%
   spread(sentiment, n, fill = 0) %>%
   mutate(sentiment = positive - negative) %>%
   
@@ -176,7 +176,7 @@ write_rds(fwbush_ot,
 fwclinton_ot <- fw_clinton_tidy %>%
   inner_join(get_sentiments("bing")) %>%
   mutate(row = row_number()) %>%
-  count(index =  row %/% 12, sentiment) %>%
+  count(index =  row %/% 6, sentiment) %>%
   spread(sentiment, n, fill = 0) %>%
   mutate(sentiment = positive - negative) %>%
   
@@ -209,7 +209,8 @@ obama_approval <- approv %>%
   cols_label(time = " ",
              approve = "Approve",
              disapprove = "Disapprove",
-             no_opinion = "No Opinion")
+             no_opinion = "No Opinion") %>%
+  as_raw_html() %>% as.character() %>% cat()
 
 write_rds(obama_approval, 
           "~/Desktop/presidential_speeches/presidential-speeches/obama_approval.rds")
@@ -226,7 +227,8 @@ bush_approval <- approv %>%
   cols_label(time = " ",
              approve = "Approve",
              disapprove = "Disapprove",
-             no_opinion = "No Opinion")
+             no_opinion = "No Opinion") %>%
+  as_raw_html() %>% as.character() %>% cat()
 
 write_rds(bush_approval, 
           "~/Desktop/presidential_speeches/presidential-speeches/bush_approval.rds")
@@ -243,7 +245,8 @@ clinton_approval <- approv %>%
   cols_label(time = " ",
              approve = "Approve",
              disapprove = "Disapprove",
-             no_opinion = "No Opinion")
+             no_opinion = "No Opinion") %>%
+  as_raw_html() %>% as.character() %>% cat()
 
 write_rds(clinton_approval, 
           "~/Desktop/presidential_speeches/presidential-speeches/clinton_approval.rds")

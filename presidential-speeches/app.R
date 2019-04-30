@@ -111,9 +111,9 @@ ui <- fluidPage(theme = shinytheme("lumen"),
                 h4("...that particular honor goes to his predecessors Gerald Ford and Ronald Reagan."),
                    align = "center")),
      
-     tabPanel("Last Words in Office", 
+     tabPanel("Closing Words in Office", 
               
-              h1("Last Words in Office"),
+              h1("Closing Words in Office"),
               sidebarLayout(
                 sidebarPanel(selectInput(inputId = "farewell",
                                          label = "Select a President",
@@ -124,9 +124,9 @@ ui <- fluidPage(theme = shinytheme("lumen"),
                 mainPanel(h3("Sentiment Analysis of Farewell Address"),
                   plotOutput("fw_topten"), 
                   plotOutput("fw_ot"),
-                  plotOutput("approv"),
+                  tableOutput("approv"),
                   h3("Closing Words of Farewell Address"),
-                  h4(Output("closing"))),
+                  h4(textOutput("closing"))))),
      
      tabPanel("About",
               h1("About"), tags$p("This app, which compares presidential speeches to each other, was made for the", tags$a("Gov. 1005: Data", href = "https://www.davidkane.info/files/gov_1005_spring_2019.html"), "course at Harvard. The transcripts for each speech are from the", tags$a("UC Santa Barbara American Presidency Project,", href = "https://www.presidency.ucsb.edu/"), "as are other data on press conferences and speech duration. The code for this project can be found", tags$a("here.", href="https://github.com/simonechu/presidential_speeches"), "Thanks for reading! - Simone Chu"))
@@ -323,7 +323,7 @@ server <- function(input, output) {
     }
   })
   
-  output$approv <- renderPlot ({
+  output$approv <- renderTable ({
     if (input$farewell == "Barack Obama") {
       obama_approval
     }
