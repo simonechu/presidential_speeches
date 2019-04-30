@@ -1,7 +1,7 @@
-president,approval,disapproval,no_opinion
-Bush,34,61,5
-Clinton,66,29,5
-Obama,59,37,4
-Clinton_initial,58,20,22
-Bush_initial,57,25,18
-Obama_initial,68,12,21
+president,time,Approve,Disapprove,No Opinion
+Bush,Final Rate,0.34,0.61,0.05
+Clinton,Final Rate,0.66,0.29,0.05
+Obama,Final Rate,0.59,0.37,0.04
+Clinton,Initial Rate,0.58,0.2,0.22
+Bush,Initial Rate,0.57,0.25,0.8
+Obama,Initial Rate,0.68,0.12,0.21

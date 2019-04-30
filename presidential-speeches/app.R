@@ -10,6 +10,7 @@
 library(shiny)
 library(shinythemes)
 library(ggplot2)
+library(gt)
 library(tidyverse)
 
 # Importing plots that I've made (of which there are many)! 
@@ -43,6 +44,15 @@ sotu2015_ot <- read_rds("./sotu2015_ot.rds")
 sotu2016_ot <- read_rds("./sotu2016_ot.rds")
 sotu2018_ot <- read_rds("./sotu2018_ot.rds")
 sotu2019_ot <- read_rds("./sotu2019_ot.rds")
+fwbush_topten <- read_rds("./fwbush_topten.rds")
+fwclinton_topten <- read_rds("./fwclinton_topten.rds")
+fwobama_topten <- read_rds("./fwobama_topten.rds")
+fwbush_ot <- read_rds("./fwbush_ot.rds")
+fwclinton_ot <- read_rds("./fwclinton_ot.rds")
+fwobama_ot <- read_rds("./fwobama_ot.rds")
+obama_approval <- read_rds("./obama_approval.rds")
+bush_approval <- read_rds("./bush_approval.rds")
+clinton_approval <- read_rds("./clinton_approval.rds")
 
 # Define UI for application
 # I picked this theme because it looked nice! Yay themes! 
@@ -110,14 +120,13 @@ ui <- fluidPage(theme = shinytheme("lumen"),
                                          choices = c("Barack Obama", "George W. Bush",
                                                      "Bill Clinton"),
                                          multiple = FALSE, 
-                                         selected = "Barack Obama"))), 
+                                         selected = "Barack Obama")), 
                 mainPanel(h3("Sentiment Analysis of Farewell Address"),
-                  plotOutput("PLACEHOLDER_TOP10"), 
-                  plotOutput("PLACEHOLDER_OT"),
-                  plotOutput("PLACEHOLDER_APPROVALRATINGS"),
+                  plotOutput("fw_topten"), 
+                  plotOutput("fw_ot"),
+                  plotOutput("approv"),
                   h3("Closing Words of Farewell Address"),
-                  h4(Output("closing"))
-              )),
+                  h4(Output("closing"))),
      
      tabPanel("About",
               h1("About"), tags$p("This app, which compares presidential speeches to each other, was made for the", tags$a("Gov. 1005: Data", href = "https://www.davidkane.info/files/gov_1005_spring_2019.html"), "course at Harvard. The transcripts for each speech are from the", tags$a("UC Santa Barbara American Presidency Project,", href = "https://www.presidency.ucsb.edu/"), "as are other data on press conferences and speech duration. The code for this project can be found", tags$a("here.", href="https://github.com/simonechu/presidential_speeches"), "Thanks for reading! - Simone Chu"))
@@ -286,11 +295,51 @@ server <- function(input, output) {
     
   })
   
+  output$fw_topten <- renderPlot({
+    if  (input$farewell == "Barack Obama") {
+      fwobama_topten
+    }
+    
+    else if (input$farewell == "George W. Bush") {
+      fwbush_topten
+    }
+    
+    else if (input$farewell == "Bill Clinton") {
+      fwclinton_topten
+    }
+  })
+  
+  output$fw_ot <- renderPlot({
+    if (input$farewell == "Barack Obama") {
+      fwobama_ot
+    }
+    
+    else if (input$farewell == "George W. Bush") {
+      fwbush_ot
+    }
+    
+    else if (input$farewell == "Bill Clinton") {
+      fwclinton_ot
+    }
+  })
+  
+  output$approv <- renderPlot ({
+    if (input$farewell == "Barack Obama") {
+      obama_approval
+    }
+    
+    else if (input$farewell == "George W. Bush") {
+      bush_approval
+    }
+    
+    else if (input$farewell == "Bill Clinton") {
+      clinton_approval
+    }
+  })
+  
   output$closing <- renderText({
     if (input$farewell == "Barack Obama") {
-      "Yes, we did. Yes, we can.
-
-      Thank you. God bless you. May God continue to bless the United States of America. Thank you."
+      "Yes, we did. Yes, we can. Thank you. God bless you. May God continue to bless the United States of America. Thank you."
     }
     
     else if (input$farewell == "George W. Bush") {
@@ -298,9 +347,7 @@ server <- function(input, output) {
     }
     
     else if (input$farewell == "Bill Clinton") {
-      "My days in this office are nearly through, but my days of service, I hope, are not. In the years ahead, I will never hold a position higher or a covenant more sacred than that of President of the United States. But there is no title I will wear more proudly than that of citizen.
-
-      Thank you. God bless you, and God bless America."
+      "My days in this office are nearly through, but my days of service, I hope, are not. In the years ahead, I will never hold a position higher or a covenant more sacred than that of President of the United States. But there is no title I will wear more proudly than that of citizen. Thank you. God bless you, and God bless America."
     }
   })
 

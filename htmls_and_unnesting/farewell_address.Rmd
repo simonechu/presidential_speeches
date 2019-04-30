@@ -11,6 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidytext)
 library(ggplot2)
 library(gt)
+library(janitor)
 library(tidyverse)
 ```
 
@@ -193,8 +194,60 @@ write_rds(fwbush_ot,
 
 ```{r FINAL_APPROVAL_RATING}
 
-approv <- read_csv("approval_ratings.csv")
+approv <- read_csv("approval_ratings.csv") %>%
+  clean_names()
 
-View(approv)
+# Obama
+obama_approval <- approv %>%
+  filter(president == "Obama") %>%
+  select(-president) %>%
+  gt() %>%
+  tab_header(title = "Changes in Approval Rating Over Term",
+             subtitle = "Barack Obama, 2009 - 2017") %>%
+  tab_source_note(md("Source: UCSB Presidency Project")) %>%
+  fmt_percent(columns = vars(approve, disapprove, no_opinion), decimals = 0) %>%
+  cols_label(time = " ",
+             approve = "Approve",
+             disapprove = "Disapprove",
+             no_opinion = "No Opinion")
+
+write_rds(obama_approval, 
+          "~/Desktop/presidential_speeches/presidential-speeches/obama_approval.rds")
+
+# Bush
+bush_approval <- approv %>%
+  filter(president == "Bush") %>%
+  select(-president) %>%
+  gt() %>%
+  tab_header(title = "Changes in Approval Rating Over Term",
+             subtitle = "George W. Bush, 2001 - 2009") %>%
+  tab_source_note(md("Source: UCSB Presidency Project")) %>%
+  fmt_percent(columns = vars(approve, disapprove, no_opinion), decimals = 0) %>%
+  cols_label(time = " ",
+             approve = "Approve",
+             disapprove = "Disapprove",
+             no_opinion = "No Opinion")
+
+write_rds(bush_approval, 
+          "~/Desktop/presidential_speeches/presidential-speeches/bush_approval.rds")
+
+# Clinton
+clinton_approval <- approv %>%
+  filter(president == "Clinton") %>%
+  select(-president) %>%
+  gt() %>%
+  tab_header(title = "Changes in Approval Rating Over Term",
+             subtitle = "Bill Clinton, 1993 - 2001") %>%
+  tab_source_note(md("Source: UCSB Presidency Project")) %>%
+  fmt_percent(columns = vars(approve, disapprove, no_opinion), decimals = 0) %>%
+  cols_label(time = " ",
+             approve = "Approve",
+             disapprove = "Disapprove",
+             no_opinion = "No Opinion")
+
+write_rds(clinton_approval, 
+          "~/Desktop/presidential_speeches/presidential-speeches/clinton_approval.rds")
+
+
 ```
 
