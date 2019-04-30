@@ -218,8 +218,7 @@ obama_approval <- approv %>%
   cols_label(time = " ",
              approve = "Approve",
              disapprove = "Disapprove",
-             no_opinion = "No Opinion") %>%
-  as_raw_html() 
+             no_opinion = "No Opinion")
 
 write_rds(obama_approval, 
           "~/Desktop/presidential_speeches/presidential-speeches/obama_approval.rds")
@@ -236,8 +235,7 @@ bush_approval <- approv %>%
   cols_label(time = " ",
              approve = "Approve",
              disapprove = "Disapprove",
-             no_opinion = "No Opinion") %>%
-  as_raw_html() 
+             no_opinion = "No Opinion")
 
 write_rds(bush_approval, 
           "~/Desktop/presidential_speeches/presidential-speeches/bush_approval.rds")
@@ -254,8 +252,7 @@ clinton_approval <- approv %>%
   cols_label(time = " ",
              approve = "Approve",
              disapprove = "Disapprove",
-             no_opinion = "No Opinion") %>%
-  as_raw_html() 
+             no_opinion = "No Opinion") 
 
 write_rds(clinton_approval, 
           "~/Desktop/presidential_speeches/presidential-speeches/clinton_approval.rds")

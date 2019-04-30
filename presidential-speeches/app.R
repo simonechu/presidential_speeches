@@ -11,6 +11,7 @@ library(shiny)
 library(shinythemes)
 library(ggplot2)
 library(gt)
+library(DT)
 library(tidyverse)
 
 # Importing plots that I've made (of which there are many)! 
@@ -127,9 +128,11 @@ ui <- fluidPage(theme = shinytheme("lumen"),
                 mainPanel(h3("Sentiment Analysis of Farewell Address"),
                   plotOutput("fw_topten"), 
                   plotOutput("fw_ot"),
-                  tableOutput("approv"),
+                  h3("Approval Ratings at Start and End of Presidency"),
+                  DT::dataTableOutput("approv"),
                   h1(" "),
                   h3("Closing Words of Farewell Address"),
+                  h1(" "),
                   h5(textOutput("closing"))))),
      
      tabPanel("About",
@@ -327,17 +330,17 @@ server <- function(input, output) {
     }
   })
   
-  output$approv <- renderUI({
+  output$approv <- DT::renderDataTable({
     if (input$farewell == "Barack Obama") {
-      obama_approval
+      DT::datatable(obama_approval)
     }
     
     else if (input$farewell == "George W. Bush") {
-      bush_approval
+      DT::datatable(bush_approval)
     }
-    
+
     else if (input$farewell == "Bill Clinton") {
-      clinton_approval
+      DT::datatable(clinton_approval)
     }
   })
   
