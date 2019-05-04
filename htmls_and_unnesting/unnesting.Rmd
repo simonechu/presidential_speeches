@@ -229,7 +229,7 @@ press_trump_sentiment <- press_trump_tidy %>%
 
 ```{r top_tens}
 
-posneg <- c("positive" = "#46b5e0", "negative" = "#0d2a45")
+posneg <- c("positive" = "#46b5e0", "negative" = "#123b62")
 
 # 2017 Inaugural Address
 i2017_topten <- i2017_sentiment %>%

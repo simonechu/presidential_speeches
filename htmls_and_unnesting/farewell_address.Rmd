@@ -71,7 +71,7 @@ fw_clinton_sentiment <- fw_clinton_tidy %>%
 ```
 
 ```{r TOPTEN}
-posneg <- c("positive" = "#46b5e0", "negative" = "#0d2a45")
+posneg <- c("positive" = "#46b5e0", "negative" = "#123b62")
 
 # Same process as before -- assigned specific colors to values to ensure that they stay 
 # consistent! 

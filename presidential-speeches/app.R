@@ -345,15 +345,15 @@ server <- function(input, output) {
   
   output$closing <- renderText({
     if (input$farewell == "Barack Obama") {
-      "Yes, we did. Yes, we can. Thank you. God bless you. May God continue to bless the United States of America. Thank you."
+      "\"Yes, we did. Yes, we can. Thank you. God bless you. May God continue to bless the United States of America. Thank you.\""
     }
     
     else if (input$farewell == "George W. Bush") {
-      "And so, my fellow Americans, for the final time, good night. May God bless this house and our next President, and may God bless you and our wonderful country. Thank you."
+      "\"And so, my fellow Americans, for the final time, good night. May God bless this house and our next President, and may God bless you and our wonderful country. Thank you.\""
     }
     
     else if (input$farewell == "Bill Clinton") {
-      "My days in this office are nearly through, but my days of service, I hope, are not. In the years ahead, I will never hold a position higher or a covenant more sacred than that of President of the United States. But there is no title I will wear more proudly than that of citizen. Thank you. God bless you, and God bless America."
+      "\"My days in this office are nearly through, but my days of service, I hope, are not. In the years ahead, I will never hold a position higher or a covenant more sacred than that of President of the United States. But there is no title I will wear more proudly than that of citizen. Thank you. God bless you, and God bless America.\""
     }
   })
 
