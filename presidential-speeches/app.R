@@ -13,7 +13,8 @@ library(ggplot2)
 library(gt)
 library(tidyverse)
 
-# Importing plots that I've made (of which there are many)! 
+# Importing plots that I've made (of which there are many)! I made the graphs in the 
+# rmarkdown files instead of in the app.R file 
 
 i1993_topten <- read_rds("./i1993_topten.rds")
 i1997_topten <- read_rds("./i1997_topten.rds")
