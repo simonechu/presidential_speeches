@@ -5,8 +5,8 @@ account: simonechu
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 893680
-bundleId: 2050470
+bundleId: 2073219
 url: https://simonechu.shinyapps.io/presidentialspeeches/
-when: 1556646749.87805
+when: 1557429302.1932
 asMultiple: FALSE
 asStatic: FALSE

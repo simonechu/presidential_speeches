@@ -6,6 +6,7 @@
 #
 #    http://shiny.rstudio.com/
 #
+# Loading relevant libraries. 
 
 library(shiny)
 library(shinythemes)
@@ -14,7 +15,7 @@ library(gt)
 library(tidyverse)
 
 # Importing plots that I've made (of which there are many)! I made the graphs in the 
-# rmarkdown files instead of in the app.R file 
+# rmarkdown files instead of in the app.R file.  
 
 i1993_topten <- read_rds("./i1993_topten.rds")
 i1997_topten <- read_rds("./i1997_topten.rds")
@@ -62,6 +63,7 @@ ui <- fluidPage(theme = shinytheme("lumen"),
    # Application title
    tabsetPanel(
      
+     # I analyzed Inaugural Addresses, 
      tabPanel("Inaugural Addresses",
               
               h1("What Makes an Inaugural Address?"),
