@@ -346,6 +346,9 @@ server <- function(input, output) {
     }
   })
   
+# I also decided to add the last words of each Farewell Address for kicks. All that took
+# was a few lines to make different text appear, depending on which president is selected. 
+  
   output$closing <- renderText({
     if (input$farewell == "Barack Obama") {
       "\"Yes, we did. Yes, we can. Thank you. God bless you. May God continue to bless the United States of America. Thank you.\""
